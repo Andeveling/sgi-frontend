@@ -1,15 +1,15 @@
 {
   "type": "module",
-  "name": "flowbite-next-starter",
-  "version": "2.0.0",
-  "description": "Basic dashboard example using Flowbite React on Next.js 14",
+  "name": "sgi",
+  "version": "0.1.0",
+  "description": "Herramienta para la gestion de inventario de tu empresa",
   "homepage": "https://github.com/tulupinc/flowbite-next-starter",
   "bugs": "https://github.com/tulupinc/flowbite-next-starter/issues",
   "license": "MIT",
-  "author": "Conner Davis <conner@tulup.io>",
+  "author": "Fabian Andres Parra Sanchez",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tulupinc/flowbite-next-starter.git"
+    "url": "https://github.com/Andeveling/sgi-frontend"
   },
   "scripts": {
     "build": "next build",

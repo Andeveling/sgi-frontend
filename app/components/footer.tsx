@@ -13,10 +13,10 @@ export function FooterLayout() {
       <div className="w-full text-center">
         <div className="w-full justify-between sm:flex sm:items-center sm:justify-between">
           <FooterBrand
-            href="https://flowbite.com"
-            src="https://flowbite.com/docs/images/logo.svg"
+            href="/"
+            src="/favicon.png"
             alt="Flowbite Logo"
-            name="Flowbite"
+            name="SGI"
           />
           <FooterLinkGroup className="flex flex-row">
             <FooterLink href="#">Nosotros</FooterLink>

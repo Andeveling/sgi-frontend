@@ -25,20 +25,20 @@ export const DashboardNavbar: FC<Record<string, never>> = function () {
                 onClick={() => setSidebarCollapsed(!isSidebarCollapsed)}
               >
                 {isSidebarCollapsed || !isSmallScreen() ? (
-                  <HiMenuAlt1 className="h-6 w-6" />
+                  <HiMenuAlt1 className="size-6" />
                 ) : (
-                  <HiX className="h-6 w-6" />
+                  <HiX className="size-6" />
                 )}
               </button>
               <Navbar.Brand href="/">
                 <Image
-                  alt="Flowbite logo"
+                  alt="sgi logo"
                   height="24"
                   src="/favicon.png"
                   width="24"
                 />
                 <span className="self-center whitespace-nowrap px-3 text-xl font-semibold dark:text-white">
-                  Flowbite
+                  SGI
                 </span>
               </Navbar.Brand>
             </div>

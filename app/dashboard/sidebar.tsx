@@ -1,16 +1,18 @@
+"use client";
+import { Routes } from "@/constants/routes";
 import { useSidebarContext } from "@/context/SidebarContext";
 import { Sidebar } from "flowbite-react";
 import type { FC } from "react";
-import { BiBuoy } from "react-icons/bi";
 import {
+  HiArchive,
   HiArrowSmRight,
+  HiBell,
   HiChartPie,
-  HiInbox,
   HiShoppingBag,
   HiTable,
   HiUser,
-  HiViewBoards,
 } from "react-icons/hi";
+
 import { twMerge } from "tailwind-merge";
 
 export const DashboardSidebar: FC = function () {
@@ -27,39 +29,38 @@ export const DashboardSidebar: FC = function () {
       )}
     >
       <Sidebar.Items>
-        <Sidebar.ItemGroup>
+        <Sidebar.ItemGroup className="space-y-2">
           <Sidebar.Item href="#" icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiViewBoards}>
-            Kanban
+
+          <Sidebar.Item href="#" icon={HiBell}>
+            Notificaciones
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiInbox}>
-            Inbox
+          <Sidebar.Item href={Routes.dashboard.employees} icon={HiUser}>
+            Empleados
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiUser}>
-            Users
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiShoppingBag}>
-            Products
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiArrowSmRight}>
-            Sign In
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiTable}>
-            Sign Up
-          </Sidebar.Item>
-        </Sidebar.ItemGroup>
-        <Sidebar.ItemGroup>
-          <Sidebar.Item href="#" icon={HiChartPie}>
-            Upgrade to Pro
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiViewBoards}>
-            Documentation
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={BiBuoy}>
-            Help
-          </Sidebar.Item>
+
+          <Sidebar.ItemGroup title="Productos">
+            <Sidebar.Item href={Routes.dashboard.products} icon={HiShoppingBag}>
+              Productos
+            </Sidebar.Item>
+            <Sidebar.Item href={Routes.dashboard.suppliers} icon={HiUser}>
+              Proveedores
+            </Sidebar.Item>
+            <Sidebar.Item href={Routes.dashboard.stock} icon={HiArchive}>
+              Stock
+            </Sidebar.Item>
+          </Sidebar.ItemGroup>
+
+          <Sidebar.ItemGroup>
+            <Sidebar.Item href="#" icon={HiArrowSmRight}>
+              Sign In
+            </Sidebar.Item>
+            <Sidebar.Item href="#" icon={HiTable}>
+              Sign Up
+            </Sidebar.Item>
+          </Sidebar.ItemGroup>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>

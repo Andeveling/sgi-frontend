@@ -21,11 +21,9 @@ export function Header() {
       </NavbarBrand>
       <NavbarToggle />
       <NavbarCollapse>
-        <NavbarLink href="#">Inicio</NavbarLink>
         <NavbarLink as={Link} href="#">
-          Admin
+          Inicio
         </NavbarLink>
-        <NavbarLink href="#">Dashboard</NavbarLink>
       </NavbarCollapse>
     </Navbar>
   );

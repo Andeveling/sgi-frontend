@@ -7,7 +7,7 @@ export default function Home() {
       <Header />
       <main className="w-full space-y-4">
         <h1 className="text-3xl font-bold  dark:text-white">
-          Inicio de seccion
+          Inicio de sección
         </h1>
         <LoginForm />;
       </main>

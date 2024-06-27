@@ -1,126 +1,100 @@
-This is a [Next.js](https://nextjs.org/) 14.x project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sistema de Gestión de Inventarios Frontend
 
-Live demo: [https://flowbite-next-starter.vercel.app/](https://flowbite-next-starter.vercel.app/)
+Este proyecto es la parte frontend de un Sistema de Gestión de Inventarios, construido usando Next.js 14. El sistema proporciona una interfaz amigable para gestionar varios aspectos del inventario, incluidos productos, proveedores, órdenes y más.
 
-It also includes:
+## Tabla de Contenidos
 
-- [x] [`flowbite`](https://flowbite.com)
-- [x] [`flowbite-react`](https://flowbite-react.com)
-- [x] [`react-icons`](https://react-icons.github.io/react-icons)
-- [x] [`tailwindcss`](https://tailwindcss.com)
-- [x] Quality of life tools, like
-  - [x] [`eslint`](https://eslint.org) with some plugins
-  - [x] [`prettier`](https://prettier.io) with some plugins
-  - [x] [`tailwind-merge`](https://github.com/dcastil/tailwind-merge)
+- [Características](#características)
+- [Requisitos Previos](#requisitos-previos)
+- [Instalación](#instalación)
+- [Uso](#uso)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Scripts](#scripts)
+- [Contribuyendo](#contribuyendo)
+- [Licencia](#licencia)
 
-## Getting started
+## Características
 
-`Next.js` requires [`Node.js`](https://nodejs.org).
+- Autenticación de usuarios y control de acceso basado en roles
+- Gestión de productos, proveedores e inventario
+- Creación y gestión de órdenes de compra
+- Recepción de notificaciones de órdenes
+- Visualización de informes y ajustes de inventario
+- Diseño responsivo para móviles y escritorio
 
-Install the dependencies:
+## Requisitos Previos
 
-```bash
-npm i
-```
+- Node.js (versión 16.x o superior)
+- npm (versión 8.x o superior) o yarn (versión 1.22.x o superior)
 
-Now you can run the development server:
+## Instalación
 
-```bash
-npm run dev
-```
+1. Clonar el repositorio:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    ```bash
+    git clone https://github.com/Andeveling/sgi-frontend.git
+    cd sgi-frontend
+    ```
 
-You can start editing the page by modifying `app/(dashboard)/content.tsx`. The page auto-updates as you edit the file.
+2. Instalar dependencias:
 
-## Add `flowbite-react` to `next` on your own
+    Usando npm:
 
-Follow these steps to add `flowbite-react` to a `next` project without cloning this repo.
+    ```bash
+    npm install
+    ```
 
-### Requirements
+    O usando yarn:
 
-- [x] [Node.js](https://nodejs.org/en/)
+    ```bash
+    yarn install
+    ```
 
-### How-to
+## Uso
 
-#### Create a new `next` starter project:
+1. Iniciar el servidor de desarrollo:
 
-```sh
-npx create-next-app@latest --typescript
-cd my-app
-```
+    Usando npm:
 
-#### Install `tailwindcss` and `flowbite-react`:
+    ```bash
+    npm run dev
+    ```
 
-```sh
-npm i --save-dev autoprefixer postcss
-npm i --save tailwindcss flowbite-react
-```
+    O usando yarn:
 
-#### Create `postcss.config.cjs`:
+    ```bash
+    yarn dev
+    ```
 
-```js
-module.exports = {
-  plugins: {
-    autoprefixer: {},
-    tailwindcss: {},
-  },
-};
-```
+2. Abre tu navegador y navega a `http://localhost:3000`.
 
-#### Create `tailwind.config.ts`:
+## Estructura del Proyecto
 
-```js
-import flowbite from "flowbite/plugin";
-import type { Config } from "tailwindcss";
+- `pages/`: Contiene las páginas de Next.js.
+- `components/`: Contiene los componentes de React utilizados en todo el proyecto.
+- `styles/`: Contiene los estilos globales y específicos de componentes.
+- `public/`: Contiene recursos estáticos como imágenes e íconos.
+- `utils/`: Contiene funciones y utilidades.
+- `contexts/`: Contiene los proveedores de contexto de React para la gestión del estado.
 
-const config: Config = {
-  content: ["./app/**/*.{ts,tsx}", "./node_modules/flowbite-react/lib/**/*.js"],
-  plugins: [flowbite],
-};
+## Scripts
 
-export default config;
-```
+- `dev`: Ejecuta la aplicación en modo de desarrollo.
+- `build`: Compila la aplicación para producción.
+- `start`: Inicia la aplicación en modo de producción.
+- `lint`: Ejecuta ESLint para verificar problemas de calidad de código.
+- `test`: Ejecuta la suite de pruebas.
 
-#### And replace the contents of `app/globals.css` by:
+## Contribuyendo
 
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
+¡Las contribuciones son bienvenidas! Por favor, sigue estos pasos para contribuir:
 
-#### Start using `flowbite-react` inside any `app/**/page.tsx`!
+1. Haz un fork del repositorio.
+2. Crea una nueva rama para tu característica o corrección de errores.
+3. Realiza tus cambios y sube tu rama a tu fork.
+4. Crea un pull request con una descripción de tus cambios.
 
-```js
-"use client";
+## Licencia
 
-import { Alert } from "flowbite-react";
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
-export default function MyPage() {
-  return <Alert color="info">Alert!</Alert>;
-}
-```
-
-## Learn more
-
-### About `flowbite`
-
-[Flowbite](https://flowbite.com) is an open source collection of UI components built with the utility classes from Tailwind CSS that you can use as a starting point when coding user interfaces and websites.
-
-In this repository, we setup [`flowbite-react`](https://flowbite-react.com) for you with examples of how to use the React components in `app/(dashboard)/content.tsx`.
-
-### About `next`
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on `vercel`
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

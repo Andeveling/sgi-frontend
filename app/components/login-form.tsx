@@ -11,7 +11,7 @@ export function LoginForm() {
         <TextInput
           id="email1"
           type="email"
-          placeholder="tucorreo@flowbite.com"
+          placeholder="tucorreo@tuemail.com"
           required
         />
       </div>

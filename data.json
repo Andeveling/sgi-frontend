@@ -1,0 +1,238 @@
+{
+    "products": [
+      {
+        "id": 1,
+        "name": "Laptop",
+        "price": "1000",
+        "supplier_id": 1,
+        "category_id": 1,
+        "description": "A powerful laptop for all your computing needs",
+        "brand_id": 1,
+        "image": "https://picsum.photos/200"
+      },
+      {
+        "id": 2,
+        "name": "Printer",
+        "price": "500",
+        "supplier_id": 2,
+        "category_id": 2,
+        "description": "A high-quality printer for all your printing needs",
+        "brand_id": 2,
+        "image": "https://picsum.photos/200"
+      },
+      {
+        "id": 3,
+        "name": "Monitor",
+        "price": "300",
+        "supplier_id": 3,
+        "category_id": 1,
+        "description": "A large and clear monitor for better visibility",
+        "brand_id": 1,
+        "image": "https://picsum.photos/200"
+      },
+      {
+        "id": 4,
+        "name": "Keyboard",
+        "price": "50",
+        "supplier_id": 1,
+        "category_id": 1,
+        "description": "A durable and comfortable keyboard for easy typing",
+        "brand_id": 3,
+        "image": "https://picsum.photos/200"
+      },
+      {
+        "id": 5,
+        "name": "Mouse",
+        "price": "30",
+        "supplier_id": 2,
+        "category_id": 1,
+        "description": "A responsive and precise mouse for accurate navigation",
+        "brand_id": 2,
+        "image": "https://picsum.photos/200"
+      },
+      {
+        "id": 6,
+        "name": "External Hard Drive",
+        "price": "150",
+        "supplier_id": 3,
+        "category_id": 1,
+        "description": "A portable and spacious external hard drive for extra storage",
+        "brand_id": 3,
+        "image": "https://picsum.photos/200"
+      },
+      {
+        "id": 7,
+        "name": "Ink Cartridge",
+        "price": "50",
+        "supplier_id": 1,
+        "category_id": 2,
+        "description": "A high-quality ink cartridge for vibrant and long-lasting prints",
+        "brand_id": 1,
+        "image": "https://picsum.photos/200"
+      },
+      {
+        "id": 8,
+        "name": "USB Cable",
+        "price": "10",
+        "supplier_id": 2,
+        "category_id": 1,
+        "description": "A reliable and fast USB cable for data transfer",
+        "brand_id": 2,
+        "image": "https://picsum.photos/200"
+      },
+      {
+        "id": 9,
+        "name": "Wireless Router",
+        "price": "80",
+        "supplier_id": 3,
+        "category_id": 1,
+        "description": "A high-speed wireless router for seamless internet connectivity",
+        "brand_id": 3,
+        "image": "https://picsum.photos/200"
+      },
+      {
+        "id": 10,
+        "name": "Headphones",
+        "price": "100",
+        "supplier_id": 1,
+        "category_id": 1,
+        "description": "A comfortable and immersive headphones for an enhanced audio experience",
+        "brand_id": 1,
+        "image": "https://picsum.photos/200"
+      }
+    ],
+    "suppliers": [
+      {
+        "id": 1,
+        "name": "Marcos Perez",
+        "email": "2CQpM@example.com",
+        "phone": "123-456-7890",
+        "address": "123 Main St",
+        "city": "Bogota",
+        "state": "Cundinamarca",
+        "zip": "11001",
+        "country": "Colombia"
+      },
+      {
+        "id": 2,
+        "name": "Susana Gonzalez",
+        "email": "9G5kK@example.com",
+        "phone": "987-654-3210",
+        "address": "456 Oak St",
+        "city": "Medellin",
+        "state": "Antioquia",
+        "zip": "05001",
+        "country": "Colombia"
+      },
+      {
+        "id": 3,
+        "name": "Ernesto Luna",
+        "email": "4nqgA@example.com",
+        "phone": "555-555-5555",
+        "address": "789 Pine St",
+        "city": "Cali",
+        "state": "Valle del Cauca",
+        "zip": "76001",
+        "country": "Colombia"
+      }
+    ],
+    "brands": [
+      {
+        "id": 1,
+        "name": "Brand A"
+      },
+      {
+        "id": 2,
+        "name": "Brand B"
+      },
+      {
+        "id": 3,
+        "name": "Brand C"
+      }],
+    "categories": [
+      {
+        "id": 1,
+        "name": "Category A"
+      },
+      {
+        "id": 2,
+        "name": "Category B"
+      },
+      {
+        "id": 3,
+        "name": "Category C"
+      }
+    ],
+    "employees": [
+      {
+        "id": 1,
+        "name": "Erick Hernandez",
+        "role": "Admin",
+        "photo": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Andres Parra",
+        "role": "Storekeeper",
+        "photo": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Juan Perez",
+        "role": "Storekeeper",
+        "photo": "https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+      }
+    ],
+    "stock": [
+      {
+        "id": 1,
+        "product_id": 1,
+        "quantity": 10
+      },
+      {
+        "id": 2,
+        "product_id": 2,
+        "quantity": 0
+      },
+      {
+        "id": 3,
+        "product_id": 3,
+        "quantity": 15
+      },
+      {
+        "id": 4,
+        "product_id": 4,
+        "quantity": 20
+      },
+      {
+        "id": 5,
+        "product_id": 5,
+        "quantity": 25
+      },
+      {
+        "id": 6,
+        "product_id": 6,
+        "quantity": 30
+      },
+      {
+        "id": 7,
+        "product_id": 7,
+        "quantity": 35
+      },
+      {
+        "id": 8,
+        "product_id": 8,
+        "quantity": 40
+      },
+      {
+        "id": 9,
+        "product_id": 9,
+        "quantity": 45
+      },
+      {
+        "id": 10,
+        "product_id": 10,
+        "quantity": 50
+      }
+    ]
+  }
