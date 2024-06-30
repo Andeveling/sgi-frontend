@@ -12,6 +12,7 @@ import {
   TableRow,
   TextInput,
 } from "flowbite-react";
+import Link from "next/link";
 import { CiFilter, CiSearch } from "react-icons/ci";
 
 export default function ProductsPage() {
@@ -29,7 +30,7 @@ export default function ProductsPage() {
         </form>
         <div className="flex justify-between gap-2">
           <Button color="blue" onClick={() => console.log("data.products")}>
-            + Add product
+            + Agregar
           </Button>
 
           <Dropdown
@@ -67,7 +68,12 @@ export default function ProductsPage() {
                 className="bg-white dark:border-gray-700 dark:bg-gray-800"
               >
                 <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {product.name}
+                  <Link
+                    href={`/dashboard/products/${product.id}`}
+                    className="font-bold text-primary-500 hover:underline"
+                  >
+                    {product.name}
+                  </Link>
                 </TableCell>
                 <TableCell>
                   {data.categories[product.category_id - 1].name}

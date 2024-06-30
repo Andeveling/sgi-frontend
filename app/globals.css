@@ -12,12 +12,3 @@ h1,h2,h3,h4,h5,h6 {
 p {
     text-wrap: pretty;
 }
-
-main {
-    min-height: 76dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}

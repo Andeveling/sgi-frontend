@@ -168,19 +168,28 @@
         "id": 1,
         "name": "Erick Hernandez",
         "role": "Admin",
-        "photo": "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+        "photo": "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
+        "hireDate": "2020-01-01",
+        "cellphone": "123-456-7890",
+        "email": "2CQpM@example.com"
       },
       {
         "id": 2,
         "name": "Andres Parra",
         "role": "Storekeeper",
-        "photo": "https://flowbite.com/docs/images/people/profile-picture-3.jpg"
+        "photo": "https://flowbite.com/docs/images/people/profile-picture-3.jpg",
+        "hireDate": "2020-01-01",
+        "cellphone": "123-456-7890",
+        "email": "2CQpM@example.com"
       },
       {
         "id": 3,
         "name": "Juan Perez",
         "role": "Storekeeper",
-        "photo": "https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+        "photo": "https://flowbite.com/docs/images/people/profile-picture-2.jpg",
+        "hireDate": "2020-01-01",
+        "cellphone": "123-456-7890",
+        "email": "2CQpM@example.com"
       }
     ],
     "stock": [
