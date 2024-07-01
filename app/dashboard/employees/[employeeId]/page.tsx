@@ -10,7 +10,6 @@ export default async function EmployeePage({
     (employee) => employee.id === parseInt(params.employeeId),
   );
 
-  console.log(employee);
   return (
     <main className="grid w-full grid-cols-3 items-start justify-start gap-2 p-2">
       <header className="col-span-3 row-span-1 flex w-full justify-between  gap-4 space-x-4 place-self-start p-4">

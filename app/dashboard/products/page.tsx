@@ -53,6 +53,7 @@ export default function ProductsPage() {
       <div className="overflow-x-auto">
         <Table>
           <TableHead>
+            <TableHeadCell>Imagen</TableHeadCell>
             <TableHeadCell>Nombre</TableHeadCell>
             <TableHeadCell>Categoría</TableHeadCell>
             <TableHeadCell>Marca</TableHeadCell>
@@ -67,6 +68,13 @@ export default function ProductsPage() {
                 key={product.id}
                 className="bg-white dark:border-gray-700 dark:bg-gray-800"
               >
+                <TableCell className="w-32">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="h-10 w-10 rounded-lg"
+                  />
+                </TableCell>
                 <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   <Link
                     href={`/dashboard/products/${product.id}`}
@@ -80,7 +88,7 @@ export default function ProductsPage() {
                 </TableCell>
                 <TableCell>{data.brands[product.brand_id - 1].name}</TableCell>
 
-                <TableCell>${product.price}</TableCell>
+                <TableCell>${product.buy_price}</TableCell>
                 <TableCell>
                   <a
                     href="/"

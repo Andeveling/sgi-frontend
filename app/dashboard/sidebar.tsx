@@ -2,11 +2,11 @@
 import { Routes } from "@/constants/routes";
 import { useSidebarContext } from "@/context/SidebarContext";
 import { Sidebar } from "flowbite-react";
+import Link from "next/link";
 import type { FC } from "react";
 import {
   HiArchive,
   HiArrowSmRight,
-  HiBell,
   HiChartPie,
   HiShoppingBag,
   HiTable,
@@ -30,25 +30,41 @@ export const DashboardSidebar: FC = function () {
     >
       <Sidebar.Items>
         <Sidebar.ItemGroup className="space-y-2">
-          <Sidebar.Item href="#" icon={HiChartPie}>
+          <Sidebar.Item href={Routes.dashboard.root} icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
 
-          <Sidebar.Item href="#" icon={HiBell}>
+          {/* <Sidebar.Item href="#" icon={HiBell}>
             Notificaciones
-          </Sidebar.Item>
-          <Sidebar.Item href={Routes.dashboard.employees} icon={HiUser}>
+          </Sidebar.Item> */}
+          <Sidebar.Item
+            href={Routes.dashboard.employees}
+            icon={HiUser}
+            as={Link}
+          >
             Empleados
           </Sidebar.Item>
 
           <Sidebar.ItemGroup title="Productos">
-            <Sidebar.Item href={Routes.dashboard.products} icon={HiShoppingBag}>
+            <Sidebar.Item
+              href={Routes.dashboard.products}
+              icon={HiShoppingBag}
+              as={Link}
+            >
               Productos
             </Sidebar.Item>
-            <Sidebar.Item href={Routes.dashboard.suppliers} icon={HiUser}>
+            <Sidebar.Item
+              href={Routes.dashboard.suppliers}
+              icon={HiUser}
+              as={Link}
+            >
               Proveedores
             </Sidebar.Item>
-            <Sidebar.Item href={Routes.dashboard.stock} icon={HiArchive}>
+            <Sidebar.Item
+              href={Routes.dashboard.stock}
+              icon={HiArchive}
+              as={Link}
+            >
               Stock
             </Sidebar.Item>
           </Sidebar.ItemGroup>

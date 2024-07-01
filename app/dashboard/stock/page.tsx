@@ -1,4 +1,5 @@
 "use client";
+import { Routes } from "@/constants/routes";
 import data from "@/data.json";
 import {
   Avatar,
@@ -12,7 +13,9 @@ import {
   TableRow,
   TextInput,
 } from "flowbite-react";
+import Link from "next/link";
 import { CiFilter, CiSearch } from "react-icons/ci";
+import { StockStatus } from "./stock-status";
 
 export default function StockPage() {
   return (
@@ -54,7 +57,12 @@ export default function StockPage() {
           <TableHead>
             <TableHeadCell>Imagen</TableHeadCell>
             <TableHeadCell>Nombre</TableHeadCell>
-            <TableHeadCell>Inventario</TableHeadCell>
+            <TableHeadCell className="text-center">Inventario</TableHeadCell>
+            <TableHeadCell className="text-center">
+              Umbral min-max
+            </TableHeadCell>
+
+            <TableHeadCell className="text-center">Estado</TableHeadCell>
             <TableHeadCell>
               <span className="sr-only">Edit</span>
             </TableHeadCell>
@@ -72,8 +80,21 @@ export default function StockPage() {
                   <TableCell className="flex whitespace-nowrap font-medium text-gray-900 dark:text-white">
                     <Avatar img={product?.image} rounded />
                   </TableCell>
-                  <TableCell>{product?.name}</TableCell>
-                  <TableCell>{item.quantity}</TableCell>
+                  <TableCell className="whitespace-nowrap font-bold text-primary-500">
+                    <Link href={`${Routes.dashboard.products}/${product?.id}`}>
+                      {product?.name}
+                    </Link>
+                  </TableCell>
+                  <TableCell className="text-center">{item.quantity}</TableCell>
+                  <TableCell className="text-center">
+                    {item.reorder_level} - {item.optimal_quantity}
+                  </TableCell>
+                  <TableCell>
+                    <StockStatus
+                      quantity={item.quantity}
+                      optimal_quantity={item.optimal_quantity}
+                    />
+                  </TableCell>
                   <TableCell>
                     <a
                       href="/"

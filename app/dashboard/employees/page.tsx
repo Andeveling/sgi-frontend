@@ -18,7 +18,7 @@ import { CiFilter, CiSearch } from "react-icons/ci";
 
 export default function EmployeesPage() {
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <main className="flex flex-col gap-4 p-4">
       <div className="mt-2 flex w-full flex-col justify-between gap-2 md:flex-row">
         <form className="flex items-center">
           <Label htmlFor="simple-search" value="Search" className="sr-only" />
@@ -63,19 +63,28 @@ export default function EmployeesPage() {
           </TableHead>
           <TableBody className="divide-y">
             {data.employees.map((employee) => (
-              <TableRow key={employee.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+              <TableRow
+                key={employee.id}
+                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+              >
                 <TableCell className="flex whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   <Avatar img={employee.photo} rounded />
                 </TableCell>
                 <TableCell>
-                  <Link href={`/dashboard/employees/${employee.id}`} className="font-bold text-cyan-600 text-primary-500 hover:underline">
+                  <Link
+                    href={`/dashboard/employees/${employee.id}`}
+                    className="font-bold  text-primary-500"
+                  >
                     {employee.name}
                   </Link>
                 </TableCell>
 
                 <TableCell>{employee.role}</TableCell>
                 <TableCell>
-                  <a href="/" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                  <a
+                    href="/"
+                    className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                  >
                     Edit
                   </a>
                 </TableCell>
@@ -84,6 +93,6 @@ export default function EmployeesPage() {
           </TableBody>
         </Table>
       </div>
-    </div>
+    </main>
   );
 }
