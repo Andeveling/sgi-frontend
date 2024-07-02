@@ -15,13 +15,16 @@ export const metadata = {
 
 const RootLayout: FC<PropsWithChildren> = function ({ children }) {
   return (
-    <html lang="es">
+    <html
+      lang="es"
+      className="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-50"
+    >
       <head>
         <ThemeModeScript />
       </head>
       <body
         className={twMerge(
-          "bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50",
+          "box-border min-h-dvh min-w-full bg-gray-100 font-sans text-gray-900 antialiased dark:bg-gray-900 dark:text-gray-50",
           inter.className,
         )}
       >
