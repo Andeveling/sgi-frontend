@@ -1,11 +1,12 @@
 import { AppSidebar } from "@/components"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { useAuth } from "@/hooks/useAuth"
 import { Navigate, Outlet } from "react-router-dom"
 import DashboardHeader from "./dashboard-header"
-import { useAuth } from "@/hooks/useAuth"
 
 export default function DashboardLayout() {
   const { user } = useAuth()
+ 
 
   if (!user) return <Navigate to='/auth/login' />
 
