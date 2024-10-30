@@ -5,12 +5,9 @@ import DashboardHeader from "./dashboard-header"
 import { useAuth } from "@/hooks/useAuth"
 
 export default function DashboardLayout() {
-  const authorize = true
   const { user } = useAuth()
-  console.log(user)
-  if (!authorize) {
-    return <Navigate to='/auth/login' />
-  }
+
+  if (!user) return <Navigate to='/auth/login' />
 
   return (
     <>

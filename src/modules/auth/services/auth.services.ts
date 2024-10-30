@@ -5,9 +5,9 @@ import { LoginRequest, UserResponse } from "../types/auth.interfaces"
 export const apiAuth = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/",
+    baseUrl: "http://localhost:1337/api/auth/",
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.token
+      const token = (getState() as RootState).auth.jwt
       if (token) {
         headers.set("authorization", `Bearer ${token}`)
       }
@@ -17,7 +17,7 @@ export const apiAuth = createApi({
   endpoints: (builder) => ({
     login: builder.mutation<UserResponse, LoginRequest>({
       query: (credentials) => ({
-        url: "login",
+        url: "local",
         method: "POST",
         body: credentials,
       }),

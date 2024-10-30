@@ -16,22 +16,23 @@ export default function LoginForm() {
   const form = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "",
+      identifier: "",
       password: "",
     },
   })
   const { toast } = useToast()
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     try {
-      const user = await login(data).unwrap()
-      dispatch(setCredentials({ user, token: user.token }))
+      const { user, jwt } = await login(data).unwrap()
+      dispatch(setCredentials({ user, jwt }))
     } catch (error) {
-      console.error(error)
-      toast({
-        title: "Error",
-        description: "Invalid credentials",
-        variant: "destructive",
-      })
+      if (error instanceof Error) {
+        toast({
+          title: "Error",
+          description: `${error}`,
+          variant: "destructive",
+        })
+      }
     }
   }
 
@@ -45,7 +46,7 @@ export default function LoginForm() {
 
         <FormField
           control={form.control}
-          name='username'
+          name='identifier'
           render={({ field }) => (
             <FormItem>
               <FormLabel htmlFor={field.name}>Email</FormLabel>

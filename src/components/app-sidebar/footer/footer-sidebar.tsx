@@ -14,9 +14,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components"
+import { useAuth } from "@/hooks/useAuth"
 import { ChevronsUpDown, Sparkles, BadgeCheck, CreditCard, Bell, LogOut } from "lucide-react"
 
 export default function FooterSidebar() {
+  const { user } = useAuth()
   return (
     <SidebarFooter>
       <SidebarMenu>
@@ -28,11 +30,11 @@ export default function FooterSidebar() {
                 className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'>
                 <Avatar className='h-8 w-8 rounded-lg'>
                   <AvatarImage src={"Andres"} alt={"Andres"} />
-                  <AvatarFallback className='rounded-lg'>CN</AvatarFallback>
+                  <AvatarFallback className='rounded-lg'>{user?.username?.slice(0, 1)}</AvatarFallback>
                 </Avatar>
                 <div className='grid flex-1 text-left text-sm leading-tight'>
-                  <span className='truncate font-semibold'>{"Andres"}</span>
-                  <span className='truncate text-xs'>{"Andres@mail.com"}</span>
+                  <span className='truncate font-semibold'>{user?.username}</span>
+                  <span className='truncate text-xs'>{user?.email}</span>
                 </div>
                 <ChevronsUpDown className='ml-auto size-4' />
               </SidebarMenuButton>
@@ -46,11 +48,11 @@ export default function FooterSidebar() {
                 <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
                   <Avatar className='h-8 w-8 rounded-lg'>
                     <AvatarImage src={"Andres"} alt={"Andres"} />
-                    <AvatarFallback className='rounded-lg'>CN</AvatarFallback>
+                    <AvatarFallback className='rounded-lg'>{user?.username?.slice(0, 1)}</AvatarFallback>
                   </Avatar>
                   <div className='grid flex-1 text-left text-sm leading-tight'>
-                    <span className='truncate font-semibold'>{"Andres Parra"}</span>
-                    <span className='truncate text-xs'>{"andres@mail.com"}</span>
+                    <span className='truncate font-semibold'>{user?.username}</span>
+                    <span className='truncate text-xs'>{user?.email}</span>
                   </div>
                 </div>
               </DropdownMenuLabel>

@@ -1,11 +1,10 @@
+import { useAuth } from "@/hooks/useAuth"
 import { Navigate, Outlet } from "react-router-dom"
 
 export default function AuthLayout() {
-  const authorized = true
+  const { user } = useAuth()
 
-  if (authorized) {
-    return <Navigate to='/dashboard' />
-  }
+  if (user) return <Navigate to='/dashboard' />
 
   return (
     <div className='flex justify-center items-center h-screen'>

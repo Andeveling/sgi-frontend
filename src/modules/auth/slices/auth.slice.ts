@@ -1,20 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 import type { RootState } from "@/store/types"
-import { User } from "../../interfaces/auth.interfaces"
+import type { User } from "../types/auth.interfaces"
 
 type AuthState = {
+  jwt: string | null
   user: User | null
-  token: string | null
 }
 
 const slice = createSlice({
   name: "auth",
-  initialState: { user: null, token: null } as AuthState,
+  initialState: { user: null, jwt: null } as AuthState,
   reducers: {
-    setCredentials: (state, { payload: { user, token } }: PayloadAction<{ user: User; token: string }>) => {
+    setCredentials: (state, { payload: { user, jwt } }: PayloadAction<{ user: User; jwt: string }>) => {
       state.user = user
-      state.token = token
+      state.jwt = jwt
     },
   },
 })
@@ -24,3 +24,4 @@ export const { setCredentials } = slice.actions
 export default slice.reducer
 
 export const selectCurrentUser = (state: RootState) => state.auth.user
+export const selectCurrentJWT = (state: RootState) => state.auth.jwt
