@@ -1,9 +1,7 @@
-import { useAuth } from "@/hooks/useAuth"
 import { Navigate, Outlet } from "react-router-dom"
 
 export default function AuthLayout() {
-  const { user } = useAuth()
-
+  const user = localStorage.getItem("user")
   if (user) return <Navigate to='/dashboard' />
 
   return (

@@ -1,18 +1,12 @@
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useAppDispatch } from "@/hooks/store.hooks"
 import { useToast } from "@/hooks/use-toast"
 import { type LoginForm, loginSchema } from "@/modules/auth/schemas/login.schema"
-import { useLoginMutation } from "@/modules/auth/services/auth.services"
-import { setCredentials } from "@/modules/auth/slices"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 export default function LoginForm() {
-  const [login, { isLoading }] = useLoginMutation()
-  const dispatch = useAppDispatch()
-
   const form = useForm<LoginForm>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -21,19 +15,12 @@ export default function LoginForm() {
     },
   })
   const { toast } = useToast()
-  const onSubmit: SubmitHandler<LoginForm> = async (data) => {
-    try {
-      const { user, jwt } = await login(data).unwrap()
-      dispatch(setCredentials({ user, jwt }))
-    } catch (error) {
-      if (error instanceof Error) {
-        toast({
-          title: "Error",
-          description: `${error}`,
-          variant: "destructive",
-        })
-      }
-    }
+  const onSubmit: SubmitHandler<LoginForm> = (data) => {
+    console.log(data)
+    toast({
+      title: "Login",
+      description: "You have successfully logged in.",
+    })
   }
 
   return (
@@ -71,8 +58,8 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type='submit' className='w-full' disabled={isLoading}>
-          {isLoading ? "Loading..." : "Login"}
+        <Button type='submit' className='w-full'>
+          login
         </Button>
       </form>
     </Form>

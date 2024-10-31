@@ -5,7 +5,7 @@ import DashboardLayout from "@/layouts/DashboardLayout/dashboard-layout"
 import HomeView from "@/modules/dashboard/views/home/home.view"
 import AuthLayout from "@/layouts/AuthLayout/auth-layout"
 import LoginView from "@/modules/auth/views/login.view"
-import StoreView from "@/modules/dashboard/views/store/store.view"
+import StoreView from "@/modules/dashboard/views/store/views/store.view"
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
           {
             path: "store",
             element: <StoreView />,
-          }
+          },
         ],
       },
 

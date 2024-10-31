@@ -14,11 +14,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components"
-import { useAuth } from "@/hooks/useAuth"
 import { ChevronsUpDown, Sparkles, BadgeCheck, CreditCard, Bell, LogOut } from "lucide-react"
 
 export default function FooterSidebar() {
-  const { user } = useAuth()
+  const handleLogout = () => {
+    console.log("logout")
+  }
+
+  const user = {
+    username: "Andres",
+    email: "andres@gmail.com",
+  }
+
   return (
     <SidebarFooter>
       <SidebarMenu>
@@ -79,7 +86,7 @@ export default function FooterSidebar() {
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>
                 <LogOut />
                 Log out
               </DropdownMenuItem>
