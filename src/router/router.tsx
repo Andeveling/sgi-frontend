@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom"
 
-import { Root } from "@/root"
-import DashboardLayout from "@/layouts/DashboardLayout/dashboard-layout"
-import HomeView from "@/modules/dashboard/views/home/home.view"
 import AuthLayout from "@/layouts/AuthLayout/auth-layout"
-import LoginView from "@/modules/auth/views/login.view"
-import StoreView from "@/modules/dashboard/views/store/views/store.view"
+import DashboardLayout from "@/layouts/DashboardLayout/dashboard-layout"
+import LoginPage from "@/pages/auth/pages/login/login.page"
+import HomePage from "@/pages/dashboard/pages/home/home.page"
+import StorePage from "@/pages/dashboard/pages/store/store-page"
+import { Root } from "@/root"
 
 export const router = createBrowserRouter([
   {
@@ -19,11 +19,11 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "",
-            element: <HomeView />,
+            element: <HomePage />,
           },
           {
             path: "store",
-            element: <StoreView />,
+            element: <StorePage />,
           },
         ],
       },
@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "login",
-            element: <LoginView />,
+            element: <LoginPage />,
           },
         ],
       },
