@@ -8,11 +8,11 @@ import {
   FormLabel,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { loginSchema, LoginFormType } from '@/pages/auth/schemas';
 import { useAuthStore } from '@/store/auth/auth.store';
+import { toast } from 'sonner';
 
 export default function LoginForm() {
   const login = useAuthStore((state) => state.loginUser);
@@ -23,20 +23,13 @@ export default function LoginForm() {
       password: '',
     },
   });
-  const { toast } = useToast();
+
   const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
     try {
       await login(data.identifier, data.password);
-      toast({
-        title: 'Login exitoso',
-        description: 'Ahora puedes acceder a tu cuenta',
-      });
+      toast.success('Login exitoso');
     } catch (error) {
-      toast({
-        title: 'Error en login',
-        description: 'Por favor, intenta de nuevo más tarde',
-        variant: 'destructive',
-      });
+      toast.error('Login fallido');
     }
   };
 
