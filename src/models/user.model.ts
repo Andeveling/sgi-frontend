@@ -6,9 +6,10 @@ export interface User {
   roles: Roles[];
 }
 
+
 export enum Roles {
   ADMIN = 'ADMIN',
   USER = 'USER',
 }
 
-export type AuthStatus = 'autorice' | 'unauthorized';
+export type AuthStatus = 'authorized' | 'unauthorized';

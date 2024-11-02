@@ -17,12 +17,11 @@ const storeApi: StateCreator<AuthState> = (set) => ({
   token: undefined,
   loginUser: async (email: string, password: string) => {
     try {
-      const res = await login({ email, password });
-      const data = res as { id: number; name: string; email: string; cellphone: string; roles: Roles[]; accessToken: string };
-      console.log(data)
-      set({ status: 'autorice', user: data, token: data.accessToken });
+      const { token, user } = await login({ email, password });
+      set({ status: 'authorized', user, token });
     } catch (error) {
-      set({ status: 'unauthorized' });
+      set({ status: 'unauthorized', user: undefined, token: undefined });
+      throw error; 
     }
   },
   logoutUser: () => {

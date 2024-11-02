@@ -1,12 +1,10 @@
 import api from '@/api/api';
+import { User } from '@/models/user.model';
+import { AxiosError } from 'axios';
 
 interface LoginResponse {
-  id: number;
-  name: string;
-  email: string;
-  cellphone: string;
-  roles: Roles[];
-  accessToken: string;
+  user: User;
+  token: string;
 }
 
 interface LoginRequest {
@@ -14,28 +12,24 @@ interface LoginRequest {
   password: string;
 }
 
-enum Roles {
-  ADMIN = 'ADMIN',
-  USER = 'USER',
-}
-
 export const login = async ({
   email,
   password,
-}: LoginRequest): Promise<LoginResponse | string> => {
+}: LoginRequest): Promise<LoginResponse> => {
   try {
-    const response = await api.post<LoginResponse>('/auth/login', {
+    const res = await api.post<LoginResponse>('/auth/login', {
       email,
       password,
     });
-    return response.data;
-  } catch (error: any) {
-    if (error instanceof Error) {
-      return error.message;
+    if (!res.data) {
+      throw new Error('Something went wrong');
     }
-    if (error.response) {
-      return error.response.data.message || 'Error de autenticación';
+    return res.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data.message);
+    } else {
+      throw new Error('Something went wrong');
     }
-    return 'Error en la solicitud. Por favor, intenta de nuevo más tarde.';
   }
 };

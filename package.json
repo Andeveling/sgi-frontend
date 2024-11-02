@@ -7,7 +7,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "cy:open": "cypress open",
+    "cypress:open": "cypress open",
     "cypress:run": "cypress run --config video=false --component",
     "test": "vitest",
     "test:ui": "vitest --ui"

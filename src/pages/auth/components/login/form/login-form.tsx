@@ -6,6 +6,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,30 +14,38 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { loginSchema, LoginFormType } from '@/pages/auth/schemas';
 import { useAuthStore } from '@/store/auth/auth.store';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
   const login = useAuthStore((state) => state.loginUser);
+  const navigate = useNavigate();
   const form = useForm<LoginFormType>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      identifier: '',
+      email: '',
       password: '',
     },
   });
 
-  const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
+  const onSubmit: SubmitHandler<LoginFormType> = async ({
+    email,
+    password,
+  }) => {
     try {
-      await login(data.identifier, data.password);
-      toast.success('Login exitoso');
+      await login(email, password)
+      toast.success('Login successful');
+      navigate('/dashboard');
     } catch (error) {
-      toast.error('Login fallido');
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
   };
 
   return (
     <Form {...form}>
       <form
-        role='form'
+        role="form"
         onSubmit={form.handleSubmit(onSubmit)}
         className="mx-auto max-w-md space-y-6"
       >
@@ -49,7 +58,7 @@ export default function LoginForm() {
 
         <FormField
           control={form.control}
-          name="identifier"
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel htmlFor={field.name}>Email</FormLabel>
@@ -64,6 +73,7 @@ export default function LoginForm() {
               <FormDescription>
                 We'll never share your email with anyone else.
               </FormDescription>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -85,6 +95,7 @@ export default function LoginForm() {
               <FormDescription>
                 We'll never share your password with anyone else.
               </FormDescription>
+              <FormMessage />
             </FormItem>
           )}
         />
