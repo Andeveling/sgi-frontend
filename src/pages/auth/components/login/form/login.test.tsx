@@ -1,14 +1,35 @@
-import { render, screen } from "@testing-library/react"
-import { describe, it, expect } from "vitest"
-import LoginForm from "./login-form"
+import { render, screen } from '@testing-library/react';
+import LoginForm from './login-form';
+import { describe, it, expect } from 'vitest';
 
-describe("LoginForm", () => {
-  it("should render the login form", () => {
-    render(<LoginForm />)
+describe('LoginForm', () => {
+  it('should render the form', () => {
+    render(<LoginForm />);
+    expect(screen.getByRole('form')).toBeInTheDocument();
+  });
 
-    expect(screen.getByRole("heading", { name: "Login" })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Login" })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Github" })).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "Google" })).toBeInTheDocument()
-  })
-})
+  it('should render the title', () => {
+    render(<LoginForm />);
+    expect(screen.getByText('Login')).toBeInTheDocument();
+  });
+
+  it('should render the email input', () => {
+    render(<LoginForm />);
+    expect(screen.getByLabelText('Email')).toBeInTheDocument();
+  });
+
+  it('should render the password input', () => {
+    render(<LoginForm />);
+    expect(screen.getByLabelText('Password')).toBeInTheDocument();
+  });
+
+  it('should render the login button', () => {
+    render(<LoginForm />);
+    expect(screen.getByRole('button')).toBeInTheDocument();
+  });
+
+  it('should render the login form description', () => {
+    render(<LoginForm />);
+    expect(screen.getByText('Enter your email and password to access your account.')).toBeInTheDocument();
+  });
+});

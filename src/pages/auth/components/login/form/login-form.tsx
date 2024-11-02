@@ -36,6 +36,7 @@ export default function LoginForm() {
   return (
     <Form {...form}>
       <form
+        role='form'
         onSubmit={form.handleSubmit(onSubmit)}
         className="mx-auto max-w-md space-y-6"
       >
