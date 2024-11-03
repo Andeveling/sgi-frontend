@@ -15,9 +15,11 @@ import { loginSchema, LoginFormType } from '@/pages/auth/schemas';
 import { useAuthStore } from '@/store/auth/auth.store';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import { getValidationError } from '@/utilities/get-validation-error';
+import { AxiosError } from 'axios';
 
 export default function LoginForm() {
-  const login = useAuthStore((state) => state.loginUser);
+  const loginUser = useAuthStore((state) => state.loginUser);
   const navigate = useNavigate();
   const form = useForm<LoginFormType>({
     resolver: zodResolver(loginSchema),
@@ -32,12 +34,12 @@ export default function LoginForm() {
     password,
   }) => {
     try {
-      await login(email, password)
+      await loginUser(email, password);
       toast.success('Login successful');
       navigate('/dashboard');
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
+      if (error instanceof AxiosError) {
+        toast.error(getValidationError(error.code));
       }
     }
   };

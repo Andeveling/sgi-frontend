@@ -27,7 +27,6 @@ import {
 export default function FooterSidebar() {
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logoutUser);
-  console.log(user)
   const handleLogout = () => {
     logout();
   };
