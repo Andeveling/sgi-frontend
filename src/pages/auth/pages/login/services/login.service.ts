@@ -11,9 +11,19 @@ interface LoginRequest {
   password: string;
 }
 
+export interface CheckProfileResponse extends User {
+  sub: string;
+  iat: number;
+  exp: number;
+}
+
 export const login = ({ email, password }: LoginRequest) => {
   return api.post<LoginResponse>('/auth/login', {
     email,
     password,
   });
+};
+
+export const checkProfileUser = async () => {
+  return api.get<CheckProfileResponse>('/auth/profile');
 };

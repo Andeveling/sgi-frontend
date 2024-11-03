@@ -4,6 +4,7 @@ export interface User {
   email: string;
   cellphone: string;
   roles: Roles[];
+  isNew: boolean;
 }
 
 

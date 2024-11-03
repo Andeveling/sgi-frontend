@@ -6,6 +6,12 @@ import { useAuthStore } from '@/store/auth/auth.store';
 
 export default function DashboardLayout() {
   const status = useAuthStore((state) => state.status);
+  const user = useAuthStore((state) => state.user);
+
+  if (status === 'authorized' && user?.isNew) {
+    return <Navigate to="/welcome" />;
+  }
+
   if (status === 'unauthorized') {
     return <Navigate to="/auth/login" />;
   }

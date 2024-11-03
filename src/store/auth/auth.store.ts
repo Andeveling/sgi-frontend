@@ -1,5 +1,8 @@
-import { AuthStatus, Roles, User } from '@/models/user.model';
-import { login } from '@/pages/auth/pages/login/services/login.service';
+import { AuthStatus, User } from '@/models/user.model';
+import {
+  checkProfileUser,
+  login,
+} from '@/pages/auth/pages/login/services/login.service';
 import { create, StateCreator } from 'zustand';
 import { persist, devtools } from 'zustand/middleware';
 
@@ -9,6 +12,7 @@ export interface AuthState {
   token?: string;
   loginUser: (email: string, password: string) => Promise<void>;
   logoutUser: () => void;
+  checkProfileUser: () => Promise<void>;
 }
 
 const storeApi: StateCreator<AuthState> = (set) => ({
@@ -21,7 +25,20 @@ const storeApi: StateCreator<AuthState> = (set) => ({
       set({ status: 'authorized', user: data.user, token: data.token });
     } catch (error) {
       set({ status: 'unauthorized', user: undefined, token: undefined });
-      throw error; 
+      throw error;
+    }
+  },
+  checkProfileUser: async () => {
+    try {
+      const { data } = await checkProfileUser();
+      set((state) => ({
+        status: 'authorized',
+        user: data,
+        token: state.token,
+      }));
+    } catch (error) {
+      set({ status: 'unauthorized', user: undefined, token: undefined });
+      throw error;
     }
   },
   logoutUser: () => {

@@ -3,6 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 export default function AuthLayout() {
   const status = useAuthStore((state) => state.status);
+
   if (status === 'authorized') {
     return <Navigate to="/dashboard" />;
   }
