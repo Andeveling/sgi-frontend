@@ -1,4 +1,4 @@
-import { Category } from '@/models/category.model';
+import { Category } from '../../schemas/category-schema';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import ActionsMenu from './actions-menu';
@@ -54,7 +54,7 @@ export const categoriesColumns: ColumnDef<Category>[] = [
       const category = row.original;
       return (
         <div className="flex items-center gap-2">
-          <ActionsMenu id={category.id} />
+          <ActionsMenu category={category} />
         </div>
       );
     },

@@ -28,11 +28,13 @@ import { SearchInput } from './search-input';
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  actions?: React.ReactNode;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  actions,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -66,9 +68,13 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center justify-between py-4">
         <SearchInput table={table} />
-        <DataTableViewOptions table={table} />
+
+        <div className="flex items-center gap-2">
+          <DataTableViewOptions table={table} />
+          {actions}
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>

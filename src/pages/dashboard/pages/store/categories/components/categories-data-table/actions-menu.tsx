@@ -8,8 +8,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
+import { CategoryPopover } from '../save-category/save-category-popover';
+import { Category } from '../../schemas/category-schema';
 
-export default function ActionsMenu({ id }: { id: string }) {
+export default function ActionsMenu({ category }: { category: Category }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -20,11 +22,13 @@ export default function ActionsMenu({ id }: { id: string }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(id)}>
+        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(category.id)}>
           Copy Category ID
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuItem>
+          <CategoryPopover initialData={category} />
+        </DropdownMenuItem>
         <DropdownMenuItem>Delete</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
