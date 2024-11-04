@@ -21,10 +21,9 @@ import {
 } from '@/components/ui/table';
 
 import { useState } from 'react';
-import { Input } from '../ui/input';
 import { DataTableViewOptions } from './data-table-toggle';
 import { DataTablePagination } from './pagination-data-table';
-import { Search } from 'lucide-react';
+import { SearchInput } from './search-input';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -68,20 +67,7 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center py-4">
-        <div className="relative max-w-sm">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-            <Search className="w-4 h-4" />
-          </span>
-          <Input
-            placeholder="Filter name..."
-            value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-            onChange={(event) =>
-              table.getColumn('name')?.setFilterValue(event.target.value)
-            }
-            className="pl-10"
-          />
-        </div>
-
+        <SearchInput table={table} />
         <DataTableViewOptions table={table} />
       </div>
       <div className="rounded-md border">
