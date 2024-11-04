@@ -8,6 +8,7 @@ import HomePage from '@/pages/dashboard/pages/home/home.page';
 import StorePage from '@/pages/dashboard/pages/store/store-page';
 import { Root } from '@/root';
 import WelcomePage from '@/pages/welcome/welcome-page';
+import WelcomeLayout from '@/layouts/welcome-layout/welcome-layout';
 
 export const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ export const router = createBrowserRouter([
   },
   {
     path: 'welcome',
-    element: <Root />,
+    element: <WelcomeLayout />,
     children: [
       {
         path: '',
