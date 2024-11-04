@@ -1,21 +1,19 @@
-import { AppSidebar } from "@/components"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { Navigate, Outlet } from "react-router-dom"
+import { AppSidebar } from '@/components';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { Navigate, Outlet } from 'react-router-dom';
+import DashboardHeader from './dashboard-header';
+import { useAuthStore } from '@/store/auth/auth.store';
 
 export default function DashboardLayout() {
-  const authorize = true
+  const status = useAuthStore((state) => state.status);
+  const user = useAuthStore((state) => state.user);
 
-  if (!authorize) {
-    return <Navigate to='/auth/login' />
+  if (status === 'authorized' && user?.isNew) {
+    return <Navigate to="/welcome" />;
+  }
+
+  if (status === 'unauthorized') {
+    return <Navigate to="/auth/login" />;
   }
 
   return (
@@ -23,29 +21,13 @@ export default function DashboardLayout() {
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
-          <header className='flex items-center h-16 shrink-0 border-b gap-2'>
-            <div className='flex items-center gap-2 px-3'>
-              <SidebarTrigger />
-              <Separator orientation='vertical' className='h-4 mr-2' />
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem className='hidden md:block'>
-                    <BreadcrumbLink href='#'>Building Your Application</BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator className='hidden md:block' />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-            </div>
-          </header>
-          <main className='flex flex-col gap-4 p-4 lg:gap-6 lg:p-6'>
+          <DashboardHeader />
+          <main className="flex flex-col gap-4 p-4 lg:gap-6 lg:p-6">
             <Outlet />
-            <div className='min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min' />
+            <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
           </main>
         </SidebarInset>
       </SidebarProvider>
     </>
-  )
+  );
 }
