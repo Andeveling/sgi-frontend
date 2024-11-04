@@ -61,11 +61,11 @@ const data = {
 
         {
           title: 'Categories',
-          url: '/dashboard/store/categories',
+          url: '/dashboard/categories',
         },
         {
           title: 'Products',
-          url: '/dashboard/store/products',
+          url: '/dashboard/products',
         },
       ],
     },

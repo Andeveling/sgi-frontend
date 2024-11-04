@@ -9,6 +9,7 @@ import StorePage from '@/pages/dashboard/pages/store/store-page';
 import { Root } from '@/root';
 import WelcomePage from '@/pages/welcome/welcome-page';
 import WelcomeLayout from '@/layouts/welcome-layout/welcome-layout';
+import CategoriesPage from '@/pages/dashboard/pages/store/categories/categories-page';
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
             path: 'store',
             element: <StorePage />,
           },
+          { path: 'categories', element: <CategoriesPage /> },
         ],
       },
 
