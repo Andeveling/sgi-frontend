@@ -6,7 +6,7 @@ import "./index.css"
 import { ThemeProvider } from "./providers/theme-provider"
 import { router } from "./router/router"
 
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

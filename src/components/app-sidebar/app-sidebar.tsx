@@ -6,7 +6,7 @@ import MenuSidebar from "./menu/menu-sidebar"
 export function AppSidebar() {
   return (
     <>
-      <Sidebar collapsible='icon'>
+      <Sidebar collapsible='offcanvas' title="SGI-sidebar">
         <HeaderSidebar />
         <SidebarContent>
           <SidebarGroup>

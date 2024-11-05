@@ -23,6 +23,7 @@ import {
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
 import { Link, useLocation } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 
 const data = {
   user: {
@@ -118,7 +119,15 @@ export default function MenuSidebar() {
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild isActive={isActive}>
                             <Link to={subItem.url}>
-                              <span>{subItem.title}</span>
+                              <span
+                                className={cn(
+                                  isActive
+                                    ? 'text-primary'
+                                    : 'text-muted-foreground',
+                                )}
+                              >
+                                {subItem.title}
+                              </span>
                             </Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>

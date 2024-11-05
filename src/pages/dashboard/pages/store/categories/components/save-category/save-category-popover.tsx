@@ -7,12 +7,17 @@ import {
 import { CategoryForm } from './category-form';
 import { PlusCircleIcon } from 'lucide-react';
 import { useState } from 'react';
-import {
-  SaveCategory,
-  saveCategorySchema,
-} from '../../schemas/category-schema';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+import {
+  createCategory,
+  updateCategory,
+} from '../../services/category.service';
+import { queryClient } from '@/main';
+import { SaveCategory, saveCategorySchema } from '@/models/category.model';
+import { useStoreSelected } from '@/store/store-selected/store-selected.store';
 
 interface SaveCategoryPopoverProps {
   initialData?: SaveCategory;
@@ -21,20 +26,26 @@ interface SaveCategoryPopoverProps {
 export function CategoryPopover({ initialData }: SaveCategoryPopoverProps) {
   const isEditing = !!initialData;
   const [open, setOpen] = useState(false);
+  const mutation = useMutation({
+    mutationFn: isEditing ? updateCategory : createCategory,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['categories'] });
+    },
+  });
+
+  const selectedStore = useStoreSelected((state) => state.store);
 
   const form = useForm<SaveCategory>({
     resolver: zodResolver(saveCategorySchema),
     defaultValues: {
       name: '',
+      storeId: selectedStore?.id,
     },
   });
 
   const onSubmit: SubmitHandler<SaveCategory> = async (data) => {
-    if (isEditing) {
-      console.log('Editing category', data);
-    } else {
-      console.log('Creating category', data);
-    }
+    console.log(data);
+    mutation.mutate(data);
   };
 
   return (
@@ -53,7 +64,6 @@ export function CategoryPopover({ initialData }: SaveCategoryPopoverProps) {
       </PopoverTrigger>
       <PopoverContent
         align="end"
-        alignOffset={10}
         side="top"
         sideOffset={10}
         className="w-64 p-4"

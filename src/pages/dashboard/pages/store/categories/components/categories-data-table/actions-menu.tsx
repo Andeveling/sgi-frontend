@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
 import { CategoryPopover } from '../save-category/save-category-popover';
-import { Category } from '../../schemas/category-schema';
+import { Category } from '@/models/category.model';
 
 export default function ActionsMenu({ category }: { category: Category }) {
   return (

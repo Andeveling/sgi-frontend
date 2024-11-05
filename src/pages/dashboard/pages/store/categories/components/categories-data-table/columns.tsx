@@ -1,9 +1,9 @@
-import { Category } from '../../schemas/category-schema';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import ActionsMenu from './actions-menu';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
+import { Category } from '@/models/category.model';
 
 export const categoriesColumns: ColumnDef<Category>[] = [
   {
