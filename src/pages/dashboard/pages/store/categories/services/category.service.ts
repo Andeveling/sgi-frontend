@@ -11,5 +11,10 @@ export const createCategory = async (data: SaveCategory) => {
 };
 
 export const updateCategory = async (data: SaveCategory) => {
-  return api.put('/categories', data);
+  const { id,...rest } = data;
+  return api.patch(`/categories/${id}`, rest);
+};
+
+export const deleteCategory = async (id: string) => {
+  return api.delete(`/categories/${id}`);
 };

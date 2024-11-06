@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const categorySchema = z.object({
   id: z.string(),
-  name: z.string(),
+  name: z.string().min(3).max(50),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
-import ActionsMenu from './actions-menu';
+import ActionsMenu from './actions-menu/actions-menu';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
 import { Category } from '@/models/category.model';
