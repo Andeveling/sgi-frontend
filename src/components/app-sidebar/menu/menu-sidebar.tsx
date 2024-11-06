@@ -144,4 +144,3 @@ export default function MenuSidebar() {
   );
 }
 
-const LinkSideBar = ({ href }: { href: string }) => {};

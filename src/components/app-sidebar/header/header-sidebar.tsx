@@ -30,9 +30,10 @@ export default function HeaderSidebar() {
                 size="lg"
                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               >
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                <div className="flex aspect-square size-8 items-center justify-center border-2 border-primary rounded-lg bg-transparent text-primary shadow-md shadow-primary/50">
                   <GalleryVerticalEnd className="size-4" />
                 </div>
+
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-semibold">Store</span>
                   <span>{selectedStore.name}</span>
