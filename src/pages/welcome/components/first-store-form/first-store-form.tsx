@@ -20,7 +20,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import {
   FirstStoreFormType,
-  firstStoreFormSchema,
+  FirstStoreFormSchema,
 } from '@/pages/welcome/schemas/first-store-form.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AxiosError } from 'axios';
@@ -40,7 +40,7 @@ export default function FirstStoreForm() {
   const logoutUser = useAuthStore((state) => state.logoutUser);
 
   const form = useForm<FirstStoreFormType>({
-    resolver: zodResolver(firstStoreFormSchema),
+    resolver: zodResolver(FirstStoreFormSchema),
     defaultValues: {
       name: '',
       description: '',

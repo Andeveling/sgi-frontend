@@ -5,7 +5,7 @@ import { queryClient } from '@/main';
 import {
   Category,
   SaveCategory,
-  saveCategorySchema,
+  SaveCategorySchema,
 } from '@/models/category.model';
 import { useStoreSelected } from '@/store/store-selected/store-selected.store';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -35,7 +35,7 @@ export const CategoryForm = ({
   }, []);
 
   const form = useForm<SaveCategory>({
-    resolver: zodResolver(saveCategorySchema),
+    resolver: zodResolver(SaveCategorySchema),
     defaultValues: {
       id: initialData?.id ?? '',
       name: initialData?.name ?? '',

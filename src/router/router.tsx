@@ -10,6 +10,7 @@ import { Root } from '@/root';
 import WelcomePage from '@/pages/welcome/welcome-page';
 import WelcomeLayout from '@/layouts/welcome-layout/welcome-layout';
 import CategoriesPage from '@/pages/dashboard/pages/store/categories/categories-page';
+import ProductsPage from '@/pages/dashboard/pages/store/products/products-page';
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
             element: <StorePage />,
           },
           { path: 'categories', element: <CategoriesPage /> },
+          {path: 'products', element: <ProductsPage />},
         ],
       },
 

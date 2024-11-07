@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
-export const categorySchema = z.object({
+export const CategorySchema = z.object({
   id: z.string(),
   name: z.string().min(3).max(50),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
 
-export const saveCategorySchema = categorySchema
+export const SaveCategorySchema = CategorySchema
   .omit({
     id: true,
     createdAt: true,
@@ -18,6 +18,6 @@ export const saveCategorySchema = categorySchema
     storeId: z.string(),
   });
 
-export type Category = z.infer<typeof categorySchema>;
-export type SaveCategory = z.infer<typeof saveCategorySchema>;
+export type Category = z.infer<typeof CategorySchema>;
+export type SaveCategory = z.infer<typeof SaveCategorySchema>;
 

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const storeSchema = z.object({
+export const StoreSchema = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string(),
@@ -10,4 +10,4 @@ export const storeSchema = z.object({
   updatedAt: z.string(),
 });
 
-export type Store = z.infer<typeof storeSchema>;
+export type Store = z.infer<typeof StoreSchema>;
