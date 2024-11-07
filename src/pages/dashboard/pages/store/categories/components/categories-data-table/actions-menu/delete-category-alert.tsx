@@ -30,6 +30,9 @@ export default function DeleteCategoryAlert({
       queryClient.invalidateQueries({ queryKey: ['categories'] });
       toast.success('Category deleted successfully');
     },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
   const handleDelete = () => {
     mutation.mutate();
