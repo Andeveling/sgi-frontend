@@ -16,9 +16,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useStoreSelected } from '@/store/store-selected/store-selected.store';
+import { useEffect } from 'react';
 
 export default function HeaderSidebar() {
   const selectedStore = useStoreSelected((state) => state.store);
+
+  useEffect(() => {
+    useStoreSelected.persist.rehydrate();
+  }, []);
 
   return (
     <SidebarHeader>

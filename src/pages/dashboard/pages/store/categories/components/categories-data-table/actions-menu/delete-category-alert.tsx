@@ -15,6 +15,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Trash2 } from 'lucide-react';
 import { deleteCategory } from '../../../services/category.service';
 import { queryClient } from '@/main';
+import { toast } from 'sonner';
 
 interface DeleteCategoryAlertProps {
   category: Category;
@@ -27,6 +28,7 @@ export default function DeleteCategoryAlert({
     mutationFn: () => deleteCategory(category.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
+      toast.success('Category deleted successfully');
     },
   });
   const handleDelete = () => {

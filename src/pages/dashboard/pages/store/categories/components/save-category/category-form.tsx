@@ -15,6 +15,9 @@ import {
   createCategory,
   updateCategory,
 } from '../../services/category.service';
+import { toast } from 'sonner';
+import { useEffect } from 'react';
+
 
 export const CategoryForm = ({
   isEditing,
@@ -26,6 +29,10 @@ export const CategoryForm = ({
   closePopover: () => void;
 }) => {
   const selectedStore = useStoreSelected((state) => state.store);
+
+  useEffect(() => {
+    useStoreSelected.persist.rehydrate();
+  }, []);
 
   const form = useForm<SaveCategory>({
     resolver: zodResolver(saveCategorySchema),
@@ -41,8 +48,12 @@ export const CategoryForm = ({
     mutationFn: isEditing ? updateCategory : createCategory,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
+      toast.success('Category saved successfully');
       form.reset();
       closePopover();
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 

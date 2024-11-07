@@ -32,6 +32,7 @@ export const useStoreSelected = create<StoreSelectedState>()(
   devtools(
     persist(storeApi, {
       name: 'store-selected',
+      skipHydration: true,
     }),
   ),
 );
