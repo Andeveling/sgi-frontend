@@ -3,7 +3,6 @@ import { z } from 'zod';
 const ProductSchema = z
   .object({
     id: z.string(),
-
     name: z.string(),
     buyPrice: z.coerce.number().int(),
     sellPrice: z.coerce.number().int(),
@@ -27,12 +26,12 @@ export const ProductFormSchema = ProductSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-}).refine((data) => data.buyPrice > data.sellPrice, {
-  message: 'Buy price must be greater than sell price',
-  path: ['buyPrice'],
-}).refine((data) => data.minStock > data.maxStock, {
-  message: 'Min stock must be greater than max stock',
-  path: ['minStock'],
+}).refine((data) => data.buyPrice < data.sellPrice, {
+  message: 'Buy price must be less than sell price',
+  path: ['sellPrice'],
+}).refine((data) => data.minStock < data.maxStock, {
+  message: 'Min stock must be less than max stock',
+  path: ['maxStock'],
 });
 
 export type Product = z.infer<typeof ProductSchema>;

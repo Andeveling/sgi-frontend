@@ -20,6 +20,7 @@ export const useProductForm = (productId: Product['id'] | undefined) => {
       stock: 0,
       description: '',
       minStock: 0,
+      maxStock: 0,
       categoryId: '',
       storeId: '',
     },

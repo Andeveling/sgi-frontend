@@ -12,6 +12,7 @@ export const productFormAdapter = (
     stock: data.stock,
     storeId: data.storeId,
     minStock: data.minStock,
+    maxStock: data.maxStock,
     description: data.description,
     expiration: data.expiration ? new Date(data.expiration) : undefined,
     categoryId: data.categoryId,
