@@ -17,7 +17,12 @@ const emptyStore: Store = {
   createdAt: '',
   updatedAt: '',
 };
-const storeApi: StateCreator<any> = (set) => ({
+const storeApi: StateCreator<
+  StoreSelectedState,
+  [],
+  [['zustand/persist', unknown]],
+  StoreSelectedState
+> = (set) => ({
   store: emptyStore,
   stores: [],
   setStore: (store: Store) => {
@@ -32,7 +37,10 @@ export const useStoreSelected = create<StoreSelectedState>()(
   devtools(
     persist(storeApi, {
       name: 'store-selected',
-      skipHydration: true,
+      merge: (persistedState: unknown, currentState: StoreSelectedState) => ({
+        ...currentState,
+        ...(persistedState as StoreSelectedState),
+      }),
     }),
   ),
 );

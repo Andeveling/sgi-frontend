@@ -5,10 +5,16 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 export default function AuthLayout() {
   const status = useAuthStore((state) => state.status);
+  const user = useAuthStore((state) => state.user);
+
+  if (status === 'authorized' && user?.isNew) {
+    return <Navigate to="/welcome" />;
+  }
 
   if (status === 'authorized') {
     return <Navigate to="/dashboard" />;
   }
+
   return (
     <div className="flex flex-col md:flex-row h-screen">
       <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-background to-primary text-primary-foreground p-8 flex-col justify-center items-center text-center">
@@ -19,7 +25,7 @@ export default function AuthLayout() {
           </p>
           <div className="flex justify-center space-x-4">
             <Package size={48} />
-            <Separator orientation="vertical" color='text-muted-foreground'  />
+            <Separator orientation="vertical" color="text-muted-foreground" />
             <BarChart size={48} />
             <Separator orientation="vertical" />
             <Users size={48} />

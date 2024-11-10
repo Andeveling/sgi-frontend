@@ -65,7 +65,6 @@ export function DataTable<TData, TValue>({
       rowSelection,
     },
   });
-
   return (
     <div>
       <div className="flex items-center justify-between py-4">

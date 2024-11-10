@@ -24,73 +24,75 @@ import {
 } from '@/components/ui/sidebar';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-
-const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
-  teams: [
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
-    },
-    {
-      name: 'Evil Corp.',
-      logo: Command,
-      plan: 'Free',
-    },
-  ],
-  navMain: [
-    {
-      title: 'Store',
-      url: '/',
-      icon: Package,
-      isActive: true,
-      items: [
-        {
-          title: 'Home',
-          url: '/dashboard',
-        },
-
-        {
-          title: 'Categories',
-          url: '/dashboard/categories',
-        },
-        {
-          title: 'Products',
-          url: '/dashboard/products',
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: 'Design Engineering',
-      url: '#',
-      icon: Frame,
-    },
-    {
-      name: 'Sales & Marketing',
-      url: '#',
-      icon: PieChart,
-    },
-    {
-      name: 'Travel',
-      url: '#',
-      icon: Map,
-    },
-  ],
-};
+import { useStoreSelected } from '@/store/store-selected/store-selected.store';
 
 export default function MenuSidebar() {
+  const store = useStoreSelected((state) => state.store);
+  const data = {
+    user: {
+      name: 'shadcn',
+      email: 'm@example.com',
+      avatar: '/avatars/shadcn.jpg',
+    },
+    teams: [
+      {
+        name: 'Acme Inc',
+        logo: GalleryVerticalEnd,
+        plan: 'Enterprise',
+      },
+      {
+        name: 'Acme Corp.',
+        logo: AudioWaveform,
+        plan: 'Startup',
+      },
+      {
+        name: 'Evil Corp.',
+        logo: Command,
+        plan: 'Free',
+      },
+    ],
+    navMain: [
+      {
+        title: 'Store',
+        url: '/',
+        icon: Package,
+        isActive: true,
+        items: [
+          {
+            title: 'Home',
+            url: `/dashboard/${store?.id}`,
+          },
+
+          {
+            title: 'Categories',
+            url: `/dashboard/${store?.id}/categories`,
+          },
+          {
+            title: 'Products',
+            url: `/dashboard/${store?.id}/products`,
+          },
+        ],
+      },
+    ],
+    projects: [
+      {
+        name: 'Design Engineering',
+        url: '#',
+        icon: Frame,
+      },
+      {
+        name: 'Sales & Marketing',
+        url: '#',
+        icon: PieChart,
+      },
+      {
+        name: 'Travel',
+        url: '#',
+        icon: Map,
+      },
+    ],
+  };
+
   const location = useLocation();
   return (
     <>
@@ -143,4 +145,3 @@ export default function MenuSidebar() {
     </>
   );
 }
-

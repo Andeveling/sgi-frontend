@@ -16,9 +16,9 @@ export function CategoryPopover() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="default" size="sm">
-          <PlusCircleIcon className="h-4 w-4 mr-2" />
-          Create new category
+        <Button variant="default" size="sm" className="h-9">
+          <PlusCircleIcon className="h-4 w-4 mr-1" />
+          Create  category
         </Button>
       </PopoverTrigger>
       <PopoverContent

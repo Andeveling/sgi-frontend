@@ -2,17 +2,20 @@ import { z } from 'zod';
 
 const ProductSchema = z.object({
   id: z.string(),
+
   name: z.string(),
-  buyPrice: z.number().int(),
-  sellPrice: z.number().int(),
-  stock: z.number().int().default(0),
+  buyPrice: z.coerce.number().int(),
+  sellPrice: z.coerce.number().int(),
+  stock: z.coerce.number().int().default(0),
+  minStock: z.coerce.number().int().optional(),
+  
   description: z.string().optional(),
   expiration: z.date().optional(),
-  minStock: z.number().int(),
   categoryId: z.string().optional(),
+  storeId: z.string(),
+
   createdAt: z.date(),
   updatedAt: z.date(),
-  storeId: z.string(),
 });
 
 export const CreateProductSchema = ProductSchema.omit({

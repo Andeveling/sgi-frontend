@@ -50,7 +50,7 @@ export const productsColumns: ColumnDef<Category>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
-      const category = row.original;
+      const product = row.original;
       return (
         <div className="flex items-center gap-2">
           <>Button</>

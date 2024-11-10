@@ -6,8 +6,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { getStores } from '@/pages/dashboard/pages/store/services/store.service';
-import { useQuery } from '@tanstack/react-query';
 
 import {
   DropdownMenu,
@@ -20,6 +18,8 @@ import { useEffect } from 'react';
 
 export default function HeaderSidebar() {
   const selectedStore = useStoreSelected((state) => state.store);
+  const setSelectedStore = useStoreSelected((state) => state.setStore);
+  const stores = useStoreSelected((state) => state.stores);
 
   useEffect(() => {
     useStoreSelected.persist.rehydrate();
@@ -46,36 +46,11 @@ export default function HeaderSidebar() {
                 <ChevronsUpDown className="ml-auto" />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
-            <DropdownContentAsync />
-          </DropdownMenu>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    </SidebarHeader>
-  );
-}
-
-const DropdownContentAsync = () => {
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['stores'],
-    queryFn: getStores,
-  });
-
-  const selectedStore = useStoreSelected((state) => state.store);
-  const setSelectedStore = useStoreSelected((state) => state.setStore);
-  const setStores = useStoreSelected((state) => state.setStores);
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
-
-  if (data) {
-    setStores(data.data);
-    setSelectedStore(data.data[0]);
-  }
-  return (
-    <DropdownMenuContent
+            <DropdownMenuContent
       className="w-[--radix-dropdown-menu-trigger-width]"
       align="start"
     >
-      {data?.data.map((store) => (
+      {stores.map((store) => (
         <DropdownMenuItem
           key={store.id}
           onSelect={() => setSelectedStore(store)}
@@ -85,5 +60,10 @@ const DropdownContentAsync = () => {
         </DropdownMenuItem>
       ))}
     </DropdownMenuContent>
+            
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarHeader>
   );
-};
+}
