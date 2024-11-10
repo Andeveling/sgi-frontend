@@ -1,23 +1,19 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { FormProvider } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import ProductDetailsCard from '../../components/product-details-card/product-details-card';
 import ProductStatisticsCard from '../../components/product-statistics-card/product-statistics-card';
+import ProductFormProvider from '../../components/products-form/product-form-provider';
 import ProductForm from '../../components/products-form/product-form';
-import { useEditPage } from './hooks/use-edit-product-hook';
-import { Navigate } from 'react-router-dom';
 
 export default function EditProductPage() {
-  const { form, isPending, error } = useEditPage();
-  if (isPending) return 'Loading...';
-  if (error) return <Navigate to='/dashboard/products' />
-
+  const { productId } = useParams();
   return (
-    <FormProvider {...form}>
+    <ProductFormProvider productId={productId}>
       <div className="grid grid-cols-1 gap-4 p-4 xl:grid-cols-2">
         <div className={`col-span-1  rounded-lg shadow-md`}>
           <Card>
             <CardContent>
-              <ProductForm isEdit/>
+              <ProductForm />
             </CardContent>
           </Card>
         </div>
@@ -26,6 +22,6 @@ export default function EditProductPage() {
           <ProductDetailsCard />
         </div>
       </div>
-    </FormProvider>
+    </ProductFormProvider>
   );
 }

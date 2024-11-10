@@ -4,12 +4,12 @@ import { NotebookTabs } from 'lucide-react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
 export default function ProductDetailsCard() {
-  const { control } = useFormContext();
+  const { watch } = useFormContext();
 
   // Obtenemos los valores observados
-  const buyPrice = useWatch({ control, name: 'buyPrice' });
-  const sellPrice = useWatch({ control, name: 'sellPrice' });
-  const stock = useWatch({ control, name: 'stock' });
+  const buyPrice = watch('buyPrice');
+  const sellPrice = watch('sellPrice');
+  const stock = watch('stock');
 
   // Si los valores no están definidos, retornamos null o un estado de carga
   if (

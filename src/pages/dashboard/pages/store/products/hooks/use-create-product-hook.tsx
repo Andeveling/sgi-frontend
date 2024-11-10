@@ -1,18 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
-import { updateProduct } from '../../../services/product.service';
+import { createProduct } from '../services/product.service';
 
-export const useUpdateProduct = () => {
+export const useCreateProduct = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const params = useParams();
 
   return useMutation({
-    mutationFn: updateProduct,
+    mutationFn: createProduct,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
-      toast.success('Product updated successfully');
+      toast.success('Product created successfully');
       navigate(`/dashboard/${params.storeId}/products`);
     },
     onError: (error) => {

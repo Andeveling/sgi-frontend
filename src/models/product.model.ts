@@ -11,6 +11,7 @@ const ProductSchema = z.object({
 
   description: z.string().optional(),
   expiration: z.date().optional(),
+
   categoryId: z.string().optional(),
   storeId: z.string(),
 
@@ -23,9 +24,15 @@ export const CreateProductSchema = ProductSchema.omit({
   createdAt: true,
   updatedAt: true,
 });
+export const ProductFormSchema = ProductSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
 
 export const UpdateProductSchema = ProductSchema.partial();
 
 export type Product = z.infer<typeof ProductSchema>;
+export type ProductFormType = z.infer<typeof ProductFormSchema>;
 export type CreateProduct = z.infer<typeof CreateProductSchema>;
 export type UpdateProduct = z.infer<typeof UpdateProductSchema>;

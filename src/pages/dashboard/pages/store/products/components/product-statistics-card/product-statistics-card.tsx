@@ -1,13 +1,4 @@
 import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
-import {
   Card,
   CardContent,
   CardDescription,
@@ -21,14 +12,21 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { BarChart3, DollarSign, TrendingUp } from 'lucide-react';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis
+} from 'recharts';
 
 export default function ProductStatisticsCard() {
-  const { control } = useFormContext();
+  const { watch } = useFormContext();
 
-  const buyPrice = useWatch({ control, name: 'buyPrice' });
-  const sellPrice = useWatch({ control, name: 'sellPrice' });
-  const stock = useWatch({ control, name: 'stock' });
+  const buyPrice = watch('buyPrice');
+  const sellPrice = watch('sellPrice');
+  const stock = watch('stock');
 
   const unitProfit = buyPrice && sellPrice ? sellPrice - buyPrice : 0;
   const totalProfit = unitProfit && stock ? unitProfit * stock : 0;
@@ -52,13 +50,12 @@ export default function ProductStatisticsCard() {
     },
   ];
 
-  // Si los valores no están definidos, no renderizamos el gráfico
   if (
     buyPrice === undefined ||
     sellPrice === undefined ||
     stock === undefined
   ) {
-    return null; // O un mensaje de carga, dependiendo del caso
+    return 0; 
   }
 
   return (
