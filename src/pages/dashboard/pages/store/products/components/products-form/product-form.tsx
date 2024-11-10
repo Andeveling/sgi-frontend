@@ -33,6 +33,9 @@ import {
   CardTitle,
   CardDescription,
 } from '@/components/ui/card';
+import { ProductDescriptionInput } from './inputs/product-description-input';
+import { ExpirationProductDateInput } from './inputs/expiration-product-date-input';
+import { ProductMaxStockInput } from './inputs/product-max-stock-input';
 
 export default function ProductForm() {
   const form = useFormContext();
@@ -47,77 +50,22 @@ export default function ProductForm() {
       <CardContent>
         <Form {...form}>
           <div className="space-y-4">
-            <div className='space-y-4'> 
+            <div className="space-y-4">
               <ProductNameInput />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <ProductBuyPriceInput />
                 <ProductSellPriceInput />
               </div>
+              <ProductStockInput />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <ProductStockInput />
                 <ProductMinimumStockInput />
+                <ProductMaxStockInput />
               </div>
 
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Description</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Enter product description (optional)"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="expiration"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Expiration Date</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={'outline'}
-                            className={`w-full pl-3 text-left font-normal ${!field.value && 'text-muted-foreground'}`}
-                          >
-                            {field.value ? (
-                              format(field.value, 'PPP')
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date < new Date() || date > new Date('2100-01-01')
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormDescription>
-                      Optional: Set an expiration date for the product
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <ProductDescriptionInput />
+              <ExpirationProductDateInput />
 
               <SelectCategoryInput />
               <StoreHiddenInput />

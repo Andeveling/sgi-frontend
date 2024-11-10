@@ -10,15 +10,15 @@ import {
 import { AlertCircle } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 
-export const ProductMinimumStockInput = () => {
+export const ProductMaxStockInput = () => {
   const form = useFormContext();
   return (
     <FormField
       control={form.control}
-      name="minStock"
+      name="maxStock"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Min Stock</FormLabel>
+          <FormLabel>Max Stock</FormLabel>
           <FormControl>
             <div className="relative">
               <AlertCircle
@@ -35,7 +35,7 @@ export const ProductMinimumStockInput = () => {
             </div>
           </FormControl>
           <FormDescription>
-            Set a minimum stock level for alerts
+            Set a maximum stock level for alerts
           </FormDescription>
           <FormMessage />
         </FormItem>
