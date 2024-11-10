@@ -6,8 +6,14 @@ import { CategoryPopover } from './components/save-category/save-category-popove
 import { getCategories } from './services/category.service';
 import { useStoreSelected } from '@/store/store-selected/store-selected.store';
 import { useEffect } from 'react';
+import { useTitleView } from '@/hooks/use-title-view';
 
 export default function CategoriesPage() {
+    useTitleView({
+      layoutDisplayName: 'Dashboard',
+      viewDisplayName: 'Categories',
+    });
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['categories'],
     queryFn: getCategories,

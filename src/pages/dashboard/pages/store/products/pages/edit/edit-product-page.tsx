@@ -3,8 +3,10 @@ import ProductDetailsCard from '../../components/product-details-card/product-de
 import ProductStatisticsCard from '../../components/product-statistics-card/product-statistics-card';
 import ProductForm from '../../components/products-form/product-form';
 import ProductFormProvider from '../../components/products-form/product-form-provider';
+import { useTitleView } from '@/hooks/use-title-view';
 
 export default function EditProductPage() {
+  useTitleView({ layoutDisplayName: 'Dashboard', viewDisplayName: 'Edit Product' });
   const { productId } = useParams();
   return (
     <ProductFormProvider productId={productId}>

@@ -4,8 +4,10 @@ import { CreateProductAction } from './components/create-product-action/create-p
 import { productsColumns } from './components/products-data-table/products-columns';
 import { getProducts } from './services/product.service';
 import { useQuery } from '@tanstack/react-query';
+import { useTitleView } from '@/hooks/use-title-view';
 
 export default function ProductsPage() {
+  useTitleView({ layoutDisplayName: 'Dashboard', viewDisplayName: 'Products' });
   const {
     data: products,
     isLoading,

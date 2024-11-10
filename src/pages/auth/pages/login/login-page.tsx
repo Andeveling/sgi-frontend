@@ -1,4 +1,4 @@
-import { useTitleView } from "@/hooks/useTitleView"
+import { useTitleView } from "@/hooks/use-title-view"
 import LoginForm from "../../components/login/form/login-form"
 
 export default function Login() {
