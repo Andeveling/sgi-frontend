@@ -17,3 +17,7 @@ export const updateProduct = (data: UpdateProduct) => {
   const { id, ...rest } = data;
   return api.patch<Product>(`/products/${id}`, rest);
 };
+
+export const deleteProduct = (id: string) => {
+  return api.delete(`/products/${id}`);
+};

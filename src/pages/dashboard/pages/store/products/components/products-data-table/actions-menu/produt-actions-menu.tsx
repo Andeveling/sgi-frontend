@@ -1,4 +1,4 @@
-import { Product } from '@/models/product.model';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,12 +7,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { MoreVertical, Edit, Trash } from 'lucide-react';
+import { Product } from '@/models/product.model';
+import { Edit, MoreVertical } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { DeleteProductAction } from './delete-product-action';
 
 type Props = {
-  product: Partial<Product>;
+  product: Product;
 };
 
 export const ProductActionsMenu = ({ product }: Props) => {
@@ -30,13 +31,14 @@ export const ProductActionsMenu = ({ product }: Props) => {
         <DropdownMenuItem>
           <Edit className="h-6 w-6" />
           <span>
-            <Link to={`/dashboard/${product.storeId}/products/${product.id}/edit`}>Edit product</Link>
+            <Link
+              to={`/dashboard/${product.storeId}/products/${product.id}/edit`}
+            >
+              Edit product
+            </Link>
           </span>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Trash className="h-6 w-6" />
-          <span>Delete product</span>
-        </DropdownMenuItem>
+        <DeleteProductAction product={product} />
       </DropdownMenuContent>
     </DropdownMenu>
   );
