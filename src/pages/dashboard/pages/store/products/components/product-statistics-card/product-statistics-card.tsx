@@ -30,18 +30,19 @@ export default function ProductStatisticsCard() {
   const sellPrice = useWatch({ control, name: 'sellPrice' });
   const stock = useWatch({ control, name: 'stock' });
 
-  const unitProfit = sellPrice - buyPrice;
-  const totalProfit = unitProfit * stock;
+  const unitProfit = buyPrice && sellPrice ? sellPrice - buyPrice : 0;
+  const totalProfit = unitProfit && stock ? unitProfit * stock : 0;
 
+  // Datos para el gráfico
   const chartData = [
     {
       name: 'Buy Price',
-      value: buyPrice,
+      value: buyPrice || 0,
       icon: <DollarSign className="h-4 w-4 text-blue-500" />,
     },
     {
       name: 'Sell Price',
-      value: sellPrice,
+      value: sellPrice || 0,
       icon: <DollarSign className="h-4 w-4 text-green-500" />,
     },
     {
@@ -50,6 +51,15 @@ export default function ProductStatisticsCard() {
       icon: <TrendingUp className="h-4 w-4 text-purple-500" />,
     },
   ];
+
+  // Si los valores no están definidos, no renderizamos el gráfico
+  if (
+    buyPrice === undefined ||
+    sellPrice === undefined ||
+    stock === undefined
+  ) {
+    return null; // O un mensaje de carga, dependiendo del caso
+  }
 
   return (
     <Card className="w-full">

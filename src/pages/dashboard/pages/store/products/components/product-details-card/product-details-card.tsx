@@ -6,13 +6,25 @@ import { useFormContext, useWatch } from 'react-hook-form';
 export default function ProductDetailsCard() {
   const { control } = useFormContext();
 
+  // Obtenemos los valores observados
   const buyPrice = useWatch({ control, name: 'buyPrice' });
   const sellPrice = useWatch({ control, name: 'sellPrice' });
   const stock = useWatch({ control, name: 'stock' });
+
+  // Si los valores no están definidos, retornamos null o un estado de carga
+  if (
+    buyPrice === undefined ||
+    sellPrice === undefined ||
+    stock === undefined
+  ) {
+    return null; // O un mensaje de carga
+  }
+
+  // Cálculos de ganancias
   const unitProfit = sellPrice - buyPrice;
   const totalProfit = unitProfit * stock;
 
-  const maxPrice = Math.max(buyPrice, sellPrice, 1); 
+  const maxPrice = Math.max(buyPrice, sellPrice, 1);
   const maxProfit = Math.max(unitProfit, totalProfit, 1);
 
   // Cálculo de porcentajes

@@ -8,7 +8,7 @@ const ProductSchema = z.object({
   sellPrice: z.coerce.number().int(),
   stock: z.coerce.number().int().default(0),
   minStock: z.coerce.number().int().optional(),
-  
+
   description: z.string().optional(),
   expiration: z.date().optional(),
   categoryId: z.string().optional(),
@@ -24,5 +24,8 @@ export const CreateProductSchema = ProductSchema.omit({
   updatedAt: true,
 });
 
+export const UpdateProductSchema = ProductSchema.partial();
+
 export type Product = z.infer<typeof ProductSchema>;
 export type CreateProduct = z.infer<typeof CreateProductSchema>;
+export type UpdateProduct = z.infer<typeof UpdateProductSchema>;

@@ -11,6 +11,7 @@ import AuthLayout from '@/layouts/AuthLayout/auth-layout';
 import LoginPage from '@/pages/auth/pages/login/login-page';
 import ProductsPage from '@/pages/dashboard/pages/store/products/products-page';
 import CreateProductPage from '@/pages/dashboard/pages/store/products/pages/create/create-product-page';
+import EditProductPage from '@/pages/dashboard/pages/store/products/pages/edit/edit-product-page';
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,11 @@ export const router = createBrowserRouter([
             id: 'createProductPage',
             path: ':storeId/products/create',
             Component: CreateProductPage,
+          },
+          {
+            id: 'editProductPage',
+            path: ':storeId/products/:productId/edit',
+            Component: EditProductPage,
           },
         ],
       },

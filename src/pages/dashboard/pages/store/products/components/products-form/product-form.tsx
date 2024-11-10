@@ -1,6 +1,4 @@
-import {
-  CalendarIcon
-} from 'lucide-react';
+import { CalendarIcon } from 'lucide-react';
 import {
   SubmitErrorHandler,
   SubmitHandler,
@@ -24,12 +22,10 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
-import { queryClient } from '@/main';
 import { CreateProduct } from '@/models/product.model';
-import { useMutation } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { toast } from 'sonner';
-import { createProduct } from '../../services/product.service';
+import { useCreateProduct } from '../../pages/create/hooks/use-create-product-hook';
+import { useUpdateProduct } from '../../pages/edit/hooks/use-update-product-hook';
 import { ProductBuyPriceInput } from './inputs/product-buy-price-input';
 import { ProductMinimumStockInput } from './inputs/product-minimun-stock-input';
 import { ProductNameInput } from './inputs/product-name-input';
@@ -37,26 +33,20 @@ import { ProductSellPriceInput } from './inputs/product-sell-price-input';
 import { ProductStockInput } from './inputs/product-stock-input';
 import SelectCategoryInput from './inputs/select-category-input';
 import StoreHiddenInput from './inputs/store-hidden-input';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-export default function ProductForm() {
-  const params = useParams()
+export default function ProductForm({ isEdit }: { isEdit?: boolean }) {
+  const updateProductMutation = useUpdateProduct();
+  const createProductMutation = useCreateProduct();
+  const params = useParams();
+  const isPending =
+    createProductMutation.isPending || updateProductMutation.isPending;
   const form = useFormContext<CreateProduct>();
-  const navigate = useNavigate();
-  const { mutate } = useMutation({
-    mutationFn: createProduct,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] });
-      toast.success('Product created successfully');
-      navigate(`/dashboard/${params.storeId}/products`);
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
 
-  const onSubmit: SubmitHandler<CreateProduct> = (values) => {
-    mutate(values);
+  const onSubmit: SubmitHandler<any> = (values) => {
+    isEdit
+      ? updateProductMutation.mutate({ ...values, id: params.productId })
+      : createProductMutation.mutate(values);
   };
 
   const onError: SubmitErrorHandler<CreateProduct> = (errors) => {
@@ -144,8 +134,12 @@ export default function ProductForm() {
           <SelectCategoryInput />
           <StoreHiddenInput />
 
-          <Button type="submit" className="w-full">
-            Create Product
+          <Button type="submit" className="w-full" disabled={isPending}>
+            {isPending
+              ? 'Saving...'
+              : isEdit
+                ? 'Update Product'
+                : 'Create Product'}
           </Button>
         </div>
       </form>
