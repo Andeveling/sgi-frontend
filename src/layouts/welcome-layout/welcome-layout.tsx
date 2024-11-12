@@ -7,38 +7,44 @@ import { getStores } from '@/pages/dashboard/pages/store/services/store.service'
 import { useStoreSelected } from '@/store/store-selected/store-selected.store';
 
 export default function WelcomeLayout() {
- const checkProfileUser = useAuthStore((state) => state.checkProfileUser);
- const user = useAuthStore((state) => state.user);
- const status = useAuthStore((state) => state.status);
- const currentStore = useStoreSelected((state) => state.store);
- const setStore = useStoreSelected((state) => state.setStore);
+  const checkProfileUser = useAuthStore((state) => state.checkProfileUser);
+  const user = useAuthStore((state) => state.user);
+  const status = useAuthStore((state) => state.status);
+  const currentStore = useStoreSelected((state) => state.store);
+  const setStore = useStoreSelected((state) => state.setStore);
+  const setStores = useStoreSelected((state) => state.setStores);
 
- useEffect(() => {
-   if (user?.isNew) {
-     checkProfileUser();
-   }
- }, [user?.isNew, checkProfileUser]);
+  useEffect(() => {
+    if (user?.isNew) {
+      checkProfileUser();
+    }
+  }, [user?.isNew, checkProfileUser]);
 
- const {
-   data: stores,
-   isLoading,
-   isError,
- } = useQuery({
-   queryKey: ['stores'],
-   queryFn: getStores,
- });
+  const {
+    data: stores,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['stores'],
+    queryFn: getStores,
+  });
 
- if (isLoading) return <div>Loading...</div>;
- if (isError) return <div>Error al cargar tiendas</div>;
- if(stores) setStore(stores.data[0]);
-  
- if (status !== 'authorized') {
-   return <Navigate to="/auth/login" />;
- }
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error al cargar tiendas</div>;
+  if (stores) {
+    setStore(stores.data[0]);
+    setStores(stores.data);
+  }
 
- if (!user?.isNew && currentStore) {
-   return <Navigate to={`/dashboard/${currentStore.id}`} />;
- }
+  if (status !== 'authorized') {
+    return <Navigate to="/auth/login" />;
+  }
+
+  console.log(user)
+
+  if (!user?.isNew && currentStore) {
+    return <Navigate to={`/dashboard/${currentStore.id}`} />;
+  }
 
   return <Outlet />;
 }

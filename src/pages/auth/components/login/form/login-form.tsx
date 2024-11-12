@@ -17,6 +17,8 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { getValidationError } from '@/utilities/get-validation-error';
 import { AxiosError } from 'axios';
+import { Toaster } from '@/components/ui/sonner';
+
 
 export default function LoginForm() {
   const loginUser = useAuthStore((state) => state.loginUser);
@@ -38,6 +40,7 @@ export default function LoginForm() {
       toast.success('Login successful');
       navigate('/dashboard');
     } catch (error) {
+      console.log(error);
       if (error instanceof AxiosError) {
         toast.error(getValidationError(error.code));
       }
@@ -57,7 +60,6 @@ export default function LoginForm() {
             Enter your email and password to access your account.
           </p>
         </div>
-
         <FormField
           control={form.control}
           name="email"
@@ -79,7 +81,6 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="password"
@@ -104,6 +105,7 @@ export default function LoginForm() {
         <Button type="submit" className="w-full">
           login
         </Button>
+        <Toaster />
       </form>
     </Form>
   );

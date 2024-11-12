@@ -17,6 +17,9 @@ export default function DashboardLayout() {
     queryKey: ['stores'],
     queryFn: getStores,
   });
+  if (status !== 'authorized') {
+    return <Navigate to="/auth/login" />;
+  }
 
   if (isPending) return 'Loading...';
   if (error) return 'An error has occurred: ' + error.message;
@@ -24,6 +27,7 @@ export default function DashboardLayout() {
     setStore(stores.data[0]);
     setStores(stores.data);
   }
+  console.log(status)
 
   if (status !== 'authorized') {
     return <Navigate to="/auth/login" />;
