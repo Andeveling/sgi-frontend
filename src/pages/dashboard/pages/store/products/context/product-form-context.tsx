@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext, useEffect } from 'react';
-import { useForm, FormProvider, UseFormReturn } from 'react-hook-form';
+import { useForm, UseFormReturn } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   ProductFormType,
@@ -11,8 +11,8 @@ import { productFormAdapter } from '../adapters/product.adapter';
 import { SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 import { useUpdateProduct } from '../hooks/use-update-product-hook';
 import { useCreateProduct } from '../hooks/use-create-product-hook';
+import { Form } from '@/components';
 
-// Definir el tipo de contexto del formulario
 interface ProductFormContextT {
   form: UseFormReturn<ProductFormType>;
   onSubmit: SubmitHandler<ProductFormType>;
@@ -80,9 +80,9 @@ export const ProductFormProvider: React.FC<ProductFormProviderProps> = ({
     <ProductFormContext.Provider
       value={{ form, onSubmit, onError, isPending, isEdit }}
     >
-      <FormProvider {...form}>
+      <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit, onError)}>{children}</form>
-      </FormProvider>
+      </Form>
     </ProductFormContext.Provider>
   );
 };

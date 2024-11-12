@@ -36,19 +36,22 @@ import {
 import { ProductDescriptionInput } from './inputs/product-description-input';
 import { ExpirationProductDateInput } from './inputs/expiration-product-date-input';
 import { ProductMaxStockInput } from './inputs/product-max-stock-input';
+import { useProductFormContext } from '../../context/product-form-context';
 
 export default function ProductForm() {
-  const form = useFormContext();
+  const { form, isEdit } = useProductFormContext();
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-2xl">Create a new product</CardTitle>
+        <CardTitle className="text-2xl">
+          {isEdit ? 'Edit Product' : 'Create a new product'}
+        </CardTitle>
         <CardDescription>
-          Add a new product to your inventory management system.
+          {isEdit ? 'Edit a product' : 'Add a new product to your inventory management system.'}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Form {...form}>
+  
           <div className="space-y-4">
             <div className="space-y-4">
               <ProductNameInput />
@@ -79,7 +82,6 @@ export default function ProductForm() {
               </Button>
             </div>
           </div>
-        </Form>
       </CardContent>
     </Card>
   );

@@ -31,6 +31,7 @@ export default function SelectCategoryInput() {
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
+
   return (
     <FormField
       control={form.control}
