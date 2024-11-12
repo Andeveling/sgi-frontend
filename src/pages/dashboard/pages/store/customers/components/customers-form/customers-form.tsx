@@ -1,12 +1,95 @@
+import { Input } from '@/components';
+import { PhoneInput } from '@/components/phone-input/phone-input';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { useCustomerForm } from '../../hooks/use-customer-form';
+import { Customer } from '@/models/customer.model';
 
-export default function CustomersPage() {
+export default function CustomersForm({ customer }: { customer?: Customer }) {
+  const { form, onSubmit, onError } = useCustomerForm({ customer });
   return (
-    <div className="p-4">
-      <Button>
-        <Plus className="mr-2 h-4 w-4" /> Add New Customer
-      </Button>
-    </div>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit, onError)}
+        className="space-y-4"
+      >
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Customer Name</FormLabel>
+              <FormControl>
+                <Input
+                  id={field.name}
+                  type="text"
+                  placeholder="Enter customer name"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                Enter your customer name to identify
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Customer Email</FormLabel>
+              <FormControl>
+                <Input
+                  id={field.name}
+                  type="email"
+                  placeholder="Enter customer email"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                Enter your customer email to identify
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="cellphone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Customer Cellphone</FormLabel>
+              <FormControl>
+                <PhoneInput
+                  {...field}
+                  defaultCountry="CO"
+                  placeholder="Enter your cellphone"
+                />
+              </FormControl>
+              <FormDescription>
+                Enter cellphone to identify your customer
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit" className="w-full">
+          Submit
+        </Button>
+      </form>
+    </Form>
   );
 }

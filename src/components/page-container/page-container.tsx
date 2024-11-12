@@ -5,6 +5,7 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card';
+import { useTitleView } from '@/hooks/use-title-view';
 
 type PageContainerProps = {
   title: string;
@@ -17,6 +18,7 @@ export default function PageContainer({
   description,
   children,
 }: PageContainerProps) {
+  useTitleView({ layoutDisplayName: 'Dashboard', viewDisplayName: title });
   return (
     <Card className="bg-background/25 p-8 rounded-xl">
       <CardHeader>

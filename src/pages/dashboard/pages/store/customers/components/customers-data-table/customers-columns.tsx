@@ -1,10 +1,14 @@
+import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Customer } from '@/models/customer.model';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
-import { Checkbox } from '@/components/ui/checkbox';
-import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
-import { Category } from '@/models/category.model';
+import { Copy } from 'lucide-react';
+import { toast } from 'sonner';
+import { CustomerActionsMenu } from './actions-menu/customer-actions-menu';
 
-export const customersColumns: ColumnDef<Category>[] = [
+export const customersColumns: ColumnDef<Customer>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -34,6 +38,48 @@ export const customersColumns: ColumnDef<Category>[] = [
     ),
   },
   {
+    accessorKey: 'email',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="email" />
+    ),
+    cell: ({ row }) => {
+      const handleClick = () => {
+        navigator.clipboard.writeText(row.original.email);
+        toast.success('Email copied to clipboard');
+      };
+      return (
+        <div className="flex items-center gap-2 ">
+          {row.original.email}
+          <Button variant="ghost" size="sm" onClick={handleClick}>
+            <Copy size={18} />
+            <span className="sr-only">Copy email</span>
+          </Button>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'cellphone',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Cellphone" />
+    ),
+    cell: ({ row }) => {
+      const handleClick = () => {
+        navigator.clipboard.writeText(row.original.cellphone);
+        toast.success('Cellphone copied to clipboard');
+      };
+      return (
+        <div className="flex items-center gap-2 ">
+          {row.original.cellphone}
+          <Button variant="ghost" size="sm" onClick={handleClick}>
+            <Copy size={18} />
+            <span className="sr-only">Copy cellphone</span>
+          </Button>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: 'createdAt',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Created At" />
@@ -47,15 +93,12 @@ export const customersColumns: ColumnDef<Category>[] = [
     ),
     cell: ({ row }) => format(row.original.createdAt, 'dd/MM/yyyy'),
   },
+
   {
     id: 'actions',
     cell: ({ row }) => {
-      const category = row.original;
-      return (
-        <div className="flex items-center gap-2">
-         <button className="btn btn-primary">Edit</button>
-        </div>
-      );
+      const customer = row.original;
+      return <CustomerActionsMenu customer={customer} />;
     },
   },
 ];

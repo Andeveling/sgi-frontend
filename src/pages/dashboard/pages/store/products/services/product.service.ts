@@ -1,11 +1,11 @@
 import api from "@/api/api";
-import { CreateProduct, Product,UpdateProduct } from "@/models/product.model";
+import { Product, ProductFormType } from '@/models/product.model';
 
 export const getProducts = () => {
   return api.get<Product[]>('/products');
 };
 
-export const createProduct = (data: CreateProduct) => {
+export const createProduct = (data: ProductFormType) => {
   return api.post<Product>('/products', data);
 };
 
@@ -13,7 +13,9 @@ export const getProductById = (id: string) => {
   return api.get<Product>(`/products/${id}`);
 };
 
-export const updateProduct = (data: UpdateProduct) => {
+
+type UpdateProductType = ProductFormType & { id: string };
+export const updateProduct = (data: UpdateProductType) => {
   const { id, ...rest } = data;
   return api.patch<Product>(`/products/${id}`, rest);
 };
