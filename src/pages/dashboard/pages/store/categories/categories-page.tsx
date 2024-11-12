@@ -1,7 +1,7 @@
 import { DataTable } from '@/components/data-table';
 import PageContainer from '@/components/page-container/page-container';
 import { useQuery } from '@tanstack/react-query';
-import { categoriesColumns } from './components/categories-data-table/columns';
+import { categoriesColumns } from './components/categories-data-table/categories-columns';
 import { CategoryPopover } from './components/save-category/save-category-popover';
 import { getCategories } from './services/category.service';
 import { useStoreSelected } from '@/store/store-selected/store-selected.store';

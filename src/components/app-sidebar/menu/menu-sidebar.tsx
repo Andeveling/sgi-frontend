@@ -71,6 +71,10 @@ export default function MenuSidebar() {
             title: 'Products',
             url: `/dashboard/${store?.id}/products`,
           },
+          {
+            title: 'Customers',
+            url: `/dashboard/${store?.id}/customers`,
+          }
         ],
       },
     ],

@@ -12,6 +12,7 @@ import LoginPage from '@/pages/auth/pages/login/login-page';
 import ProductsPage from '@/pages/dashboard/pages/store/products/products-page';
 import CreateProductPage from '@/pages/dashboard/pages/store/products/pages/create/create-product-page';
 import EditProductPage from '@/pages/dashboard/pages/store/products/pages/edit/edit-product-page';
+import CustomersPage from '@/pages/dashboard/pages/store/customers/customers-page';
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,11 @@ export const router = createBrowserRouter([
             path: ':storeId/products/:productId/edit',
             Component: EditProductPage,
           },
+          {
+            id: 'customersPage',
+            path: ':storeId/customers',
+            Component: CustomersPage,
+          }
         ],
       },
     ],
