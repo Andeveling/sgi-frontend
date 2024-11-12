@@ -7,10 +7,10 @@ import {
   FormMessage,
 } from '@/components';
 import { Package } from 'lucide-react';
-import { useFormContext } from 'react-hook-form';
+import { useProductFormContext } from '../../../context/product-form-context';
 
 export const ProductNameInput = () => {
-  const form = useFormContext();
+  const { form } = useProductFormContext();
   return (
     <FormField
       control={form.control}

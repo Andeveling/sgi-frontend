@@ -1,9 +1,9 @@
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components";
 import { Textarea } from "@/components/ui/textarea";
-import { useFormContext } from "react-hook-form";
+import { useProductFormContext } from "../../../context/product-form-context";
 
 export const ProductDescriptionInput = () => {
-    const form = useFormContext();
+  const { form } = useProductFormContext();
   return (
     <FormField
       control={form.control}

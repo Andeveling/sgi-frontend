@@ -7,10 +7,10 @@ import {
   Input,
 } from '@/components';
 import { DollarSign } from 'lucide-react';
-import { useFormContext } from 'react-hook-form';
+import { useProductFormContext } from '../../../context/product-form-context';
 
 export const ProductSellPriceInput = () => {
-  const form = useFormContext();
+  const { form } = useProductFormContext();
   return (
     <FormField
       control={form.control}

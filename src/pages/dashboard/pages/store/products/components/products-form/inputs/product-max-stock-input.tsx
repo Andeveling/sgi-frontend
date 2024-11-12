@@ -8,10 +8,10 @@ import {
   FormMessage,
 } from '@/components';
 import { AlertCircle } from 'lucide-react';
-import { useFormContext } from 'react-hook-form';
+import { useProductFormContext } from '../../../context/product-form-context';
 
 export const ProductMaxStockInput = () => {
-  const form = useFormContext();
+  const { form } = useProductFormContext();
   return (
     <FormField
       control={form.control}

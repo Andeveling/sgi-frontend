@@ -1,10 +1,10 @@
 import { useStoreSelected } from '@/store/store-selected/store-selected.store';
 import { useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { useShallow } from 'zustand/shallow';
+import { useProductFormContext } from '../../../context/product-form-context';
 
 export default function StoreHiddenInput() {
-  const form = useFormContext();
+  const { form } = useProductFormContext();
   const store = useStoreSelected(useShallow((state) => state.store));
 
   useEffect(() => {

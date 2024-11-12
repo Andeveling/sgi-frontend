@@ -2,8 +2,8 @@ import { useParams } from 'react-router-dom';
 import ProductDetailsCard from '../../components/product-details-card/product-details-card';
 import ProductStatisticsCard from '../../components/product-statistics-card/product-statistics-card';
 import ProductForm from '../../components/products-form/product-form';
-import ProductFormProvider from '../../components/products-form/product-form-provider';
 import { useTitleView } from '@/hooks/use-title-view';
+import { ProductFormProvider } from '../../context/product-form-context';
 
 export default function EditProductPage() {
   useTitleView({ layoutDisplayName: 'Dashboard', viewDisplayName: 'Edit Product' });

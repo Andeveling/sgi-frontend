@@ -2,7 +2,7 @@ import { useTitleView } from '@/hooks/use-title-view';
 import ProductDetailsCard from '../../components/product-details-card/product-details-card';
 import ProductStatisticsCard from '../../components/product-statistics-card/product-statistics-card';
 import ProductForm from '../../components/products-form/product-form';
-import ProductFormProvider from '../../components/products-form/product-form-provider';
+import { ProductFormProvider } from '../../context/product-form-context';
 
 export default function CreateProductPage() {
   useTitleView({ layoutDisplayName: 'Dashboard', viewDisplayName: 'Create Product' });

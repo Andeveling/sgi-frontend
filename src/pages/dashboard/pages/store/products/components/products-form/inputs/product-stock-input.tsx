@@ -5,19 +5,20 @@ import {
   FormControl,
   Input,
   FormMessage,
+  FormDescription,
 } from '@/components';
 import { ShoppingCart } from 'lucide-react';
-import { useFormContext } from 'react-hook-form';
+import { useProductFormContext } from '../../../context/product-form-context';
 
 export const ProductStockInput = () => {
-  const form = useFormContext();
+  const { form, isEdit } = useProductFormContext();
   return (
     <FormField
       control={form.control}
       name="stock"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Stock</FormLabel>
+          <FormLabel>Initial Stock</FormLabel>
           <FormControl>
             <div className="relative">
               <ShoppingCart
@@ -25,6 +26,8 @@ export const ProductStockInput = () => {
                 size={18}
               />
               <Input
+                readOnly={isEdit}
+                disabled={isEdit}
                 className="pl-10"
                 type="number"
                 placeholder="0"
@@ -33,6 +36,11 @@ export const ProductStockInput = () => {
               />
             </div>
           </FormControl>
+          {isEdit && (
+            <FormDescription>
+              If you want to change the stock, you can in movement products
+            </FormDescription>
+          )}
           <FormMessage />
         </FormItem>
       )}

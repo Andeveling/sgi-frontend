@@ -14,11 +14,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useQuery } from '@tanstack/react-query';
-import { useFormContext } from 'react-hook-form';
 import { getCategories } from '../../../../categories/services/category.service';
+import { useProductFormContext } from '../../../context/product-form-context';
 
 export default function SelectCategoryInput() {
-  const form = useFormContext();
+  const { form } = useProductFormContext();
   const {
     data: categories,
     isLoading,
@@ -38,7 +38,10 @@ export default function SelectCategoryInput() {
       render={({ field }) => (
         <FormItem>
           <FormLabel>Category</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value.id}>
+          <Select
+            onValueChange={field.onChange}
+            defaultValue={field.value ?? ''}
+          >
             <FormControl>
               <SelectTrigger>
                 <SelectValue placeholder="Select a category" />
@@ -52,9 +55,7 @@ export default function SelectCategoryInput() {
               ))}
             </SelectContent>
           </Select>
-          <FormDescription>
-            Select a category
-          </FormDescription>
+          <FormDescription>Select a category</FormDescription>
           <FormMessage />
         </FormItem>
       )}

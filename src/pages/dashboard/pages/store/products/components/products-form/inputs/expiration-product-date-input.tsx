@@ -1,24 +1,24 @@
 import {
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@/components';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from '@/components/ui/popover';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import { useFormContext } from 'react-hook-form';
+import { useProductFormContext } from '../../../context/product-form-context';
 
 export const ExpirationProductDateInput = () => {
-  const form = useFormContext();
+  const { form } = useProductFormContext();
   return (
     <FormField
       control={form.control}
