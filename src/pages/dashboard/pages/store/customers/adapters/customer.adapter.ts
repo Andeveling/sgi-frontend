@@ -1,8 +1,14 @@
 import { Customer, CustomerForm } from '@/models/customer.model';
+import { AxiosResponse } from 'axios';
 
-export const customerFormAdapter = (customer: Customer): CustomerForm => ({
-  name: customer.name,
-  email: customer.email,
-  cellphone: customer.cellphone,
-  identification: customer.identification,
-});
+export const customerFormAdapter = (
+  customer: AxiosResponse<Customer>,
+): CustomerForm => {
+  const { data } = customer;
+  return {
+    name: data.name,
+    email: data.email,
+    cellphone: data.cellphone,
+    identification: data.identification,
+  };
+};

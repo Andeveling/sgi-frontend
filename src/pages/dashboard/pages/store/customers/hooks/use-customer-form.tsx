@@ -1,4 +1,8 @@
-import { Customer, CustomerForm, CustomerFormSchema } from '@/models/customer.model';
+import {
+  Customer,
+  CustomerForm,
+  CustomerFormSchema,
+} from '@/models/customer.model';
 import { useEffect } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { useUpdateCustomer } from './use-update-customer';
@@ -22,17 +26,21 @@ export const useCustomerForm = ({ customer }: { customer?: Customer }) => {
 
   const updateMutation = useUpdateCustomer();
   const createMutation = useCreateCustomer();
+  const isPending = updateMutation.isPending || createMutation.isPending;
 
   const form = useForm<CustomerForm>({
     resolver: zodResolver(CustomerFormSchema),
-    defaultValues
+    defaultValues,
   });
 
   const onSubmit: SubmitHandler<CustomerForm> = (data) => {
+    console.log(data);
     if (isEdit) {
       updateMutation.mutate({ ...data, id: customer.id });
+      closeModal();
     } else {
       createMutation.mutate(data);
+      closeModal();
     }
   };
 
@@ -50,5 +58,6 @@ export const useCustomerForm = ({ customer }: { customer?: Customer }) => {
     openModal,
     isOpen,
     closeModal,
+    isPending,
   };
 };

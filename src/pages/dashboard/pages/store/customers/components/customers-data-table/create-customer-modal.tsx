@@ -1,13 +1,9 @@
 import CreateButton from '@/components/create-button/create-button';
-import { Modal } from '@/components/modal/modal-form';
-import { useCustomerForm } from '../../hooks/use-customer-form';
-import CustomersForm from '../customers-form/customers-form';
-
+import { Modal, useModal } from '@/components/modal/modal-form';
+import { CreateCustomerForm } from '../customers-form/create-customer-form';
 
 export default function CreateCustomerModal() {
-  const { openModal, isOpen, closeModal } = useCustomerForm({
-    customer: undefined,
-  });
+  const { openModal, isOpen, closeModal } = useModal();
   return (
     <>
       <CreateButton onClick={openModal} entityName="Customer" />
@@ -17,7 +13,7 @@ export default function CreateCustomerModal() {
         isOpen={isOpen}
         closeModal={closeModal}
       >
-        <CustomersForm />
+        <CreateCustomerForm closeModal={closeModal} />
       </Modal>
     </>
   );
