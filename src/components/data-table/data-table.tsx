@@ -64,6 +64,11 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
     },
+    defaultColumn: {
+      size: 200, //starting column size
+      minSize: 50, //enforced during column resizing
+      maxSize: 500, //enforced during column resizing
+    },
   });
   return (
     <div>

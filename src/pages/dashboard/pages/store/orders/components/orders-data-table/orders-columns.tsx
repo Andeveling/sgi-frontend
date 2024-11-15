@@ -1,16 +1,17 @@
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
+import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
+import { cn } from '@/lib/utils';
 import { Order } from '@/models/orders.model';
 import { formatCurrency } from '@/utilities/currency-util';
 import { ColumnDef } from '@tanstack/react-table';
-import { Badge } from '@/components/ui/badge';
-import { CheckCircleIcon, ClockIcon, X } from 'lucide-react';
 import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
+import { CheckCircleIcon, ClockIcon, X } from 'lucide-react';
 
 export const ordersColumns: ColumnDef<Order>[] = [
   {
     id: 'select',
+    accessorKey: 'check',
     header: ({ table }) => (
       <Checkbox
         checked={
@@ -34,7 +35,7 @@ export const ordersColumns: ColumnDef<Order>[] = [
   {
     accessorKey: 'orderNumber',
     header: ({ column }) => (
-      <div className='grid justify-center'>
+      <div className="grid justify-center">
         <DataTableColumnHeader
           column={column}
           title="No"

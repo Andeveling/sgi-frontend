@@ -3,6 +3,7 @@ import PageContainer from '@/components/page-container/page-container';
 import { useQuery } from '@tanstack/react-query';
 import { ordersColumns } from './components/orders-data-table/orders-columns';
 import { getOrders } from './services/orders.service';
+import { TableOrderOptions } from './components/orders-data-table/table-actions/table-order-actions';
 
 export default function OrdersPage() {
   const {
@@ -29,7 +30,11 @@ export default function OrdersPage() {
 
   return (
     <PageContainer title="Orders" description="Manage your invoices">
-      <DataTable columns={ordersColumns} data={orders.data} />
+      <DataTable
+        columns={ordersColumns}
+        data={orders.data}
+        actions={<TableOrderOptions />}
+      />
     </PageContainer>
   );
 }
