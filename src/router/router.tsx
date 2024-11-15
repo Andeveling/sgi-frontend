@@ -13,6 +13,7 @@ import ProductsPage from '@/pages/dashboard/pages/store/products/products-page';
 import CreateProductPage from '@/pages/dashboard/pages/store/products/pages/create/create-product-page';
 import EditProductPage from '@/pages/dashboard/pages/store/products/pages/edit/edit-product-page';
 import CustomersPage from '@/pages/dashboard/pages/store/customers/customers-page';
+import OrdersPage from '@/pages/dashboard/pages/store/orders/orders-page';
 
 export const router = createBrowserRouter([
   {
@@ -53,7 +54,12 @@ export const router = createBrowserRouter([
             id: 'customersPage',
             path: ':storeId/customers',
             Component: CustomersPage,
-          }
+          },
+          {
+            id: 'ordersPage',
+            path: ':storeId/orders',
+            Component: OrdersPage,
+          },
         ],
       },
     ],
