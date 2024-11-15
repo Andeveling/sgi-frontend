@@ -5,6 +5,8 @@ import { formatCurrency } from '@/utilities/currency-util';
 import { ColumnDef } from '@tanstack/react-table';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircleIcon, ClockIcon, X } from 'lucide-react';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
 
 export const ordersColumns: ColumnDef<Order>[] = [
   {
@@ -32,7 +34,16 @@ export const ordersColumns: ColumnDef<Order>[] = [
   {
     accessorKey: 'orderNumber',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Order Number" />
+      <div className='grid justify-center'>
+        <DataTableColumnHeader
+          column={column}
+          title="No"
+          className=" self-justify-center"
+        />
+      </div>
+    ),
+    cell: ({ row }) => (
+      <div className="text-center">{row.original.orderNumber}</div>
     ),
   },
   {
@@ -40,6 +51,10 @@ export const ordersColumns: ColumnDef<Order>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Date" />
     ),
+    cell: ({ row }) => {
+      const order = row.original;
+      return <div>{format(order.date, 'dd/MM/yyyy')}</div>;
+    },
   },
   {
     accessorKey: 'totalAmount',
@@ -59,23 +74,27 @@ export const ordersColumns: ColumnDef<Order>[] = [
   {
     accessorKey: 'status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader
+        column={column}
+        title="Status"
+        className="justify-center"
+      />
     ),
     cell: ({ row }) => {
       const order = row.original;
       const statusConfig = {
         PENDING: {
-          color: 'yellow',
+          color: 'bg-orange-500',
           icon: <ClockIcon size={18} />,
           label: 'Pendiente',
         },
         CANCELLED: {
-          color: 'error',
+          color: 'bg-red-500',
           icon: <X size={18} />,
-          label: 'Pagada',
+          label: 'Cancelada',
         },
         FULFILLED: {
-          color: 'green',
+          color: 'bg-green-500',
           icon: <CheckCircleIcon size={18} />,
           label: 'Completada',
         },
@@ -87,14 +106,15 @@ export const ordersColumns: ColumnDef<Order>[] = [
       };
 
       return (
-        <Badge
-          color={currentStatus.color}
-          variant="outline"
-          className="p-1 px-2"
-        >
-          {currentStatus.icon}{' '}
-          <span className="ml-1"> {currentStatus.label}</span>
-        </Badge>
+        <div className="flex justify-center">
+          <Badge
+            variant="outline"
+            className={cn('p-1 px-2', currentStatus.color)}
+          >
+            {currentStatus.icon}{' '}
+            <span className="ml-1"> {currentStatus.label}</span>
+          </Badge>
+        </div>
       );
     },
   },

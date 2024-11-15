@@ -12,7 +12,7 @@ export const OrderItemSchema = z.object({
 
 export const OrderSchema = z.object({
   id: z.string().uuid().optional(),
-  invoiceNumber: z.string(),
+  orderNumber: z.string(),
   date: z.date().default(() => new Date()),
   totalAmount: z.number().int().nonnegative(),
   status: OrderStatusEnum.default('PENDING'),
