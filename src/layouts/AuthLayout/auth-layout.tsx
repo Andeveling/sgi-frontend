@@ -6,6 +6,8 @@ import { Navigate, Outlet } from 'react-router-dom';
 export default function AuthLayout() {
   const status = useAuthStore((state) => state.status);
   const user = useAuthStore((state) => state.user);
+  const checkProfileUser = useAuthStore((state) => state.checkProfileUser);
+  checkProfileUser();
 
   if (status === 'authorized' && user?.isNew) {
     return <Navigate to="/welcome" />;

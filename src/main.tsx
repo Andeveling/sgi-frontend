@@ -5,7 +5,6 @@ import { RouterProvider } from "react-router-dom"
 import "./index.css"
 import { ThemeProvider } from "./providers/theme-provider"
 import { router } from "./router/router"
-// import { router } from "./router/rotuer2"
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export const queryClient = new QueryClient()
