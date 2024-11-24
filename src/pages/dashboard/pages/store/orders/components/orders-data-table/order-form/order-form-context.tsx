@@ -1,6 +1,6 @@
 import { Form } from '@/components/ui/form';
 import { OrderForm, OrderStatusEnum } from '@/models/orders.model';
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   SubmitErrorHandler,
@@ -11,6 +11,10 @@ import {
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createOrder } from '../../../services/orders.service';
 import { toast } from 'sonner';
+import { useStoreSelected } from '@/store/store-selected/store-selected.store';
+import { DevTool } from '@hookform/devtools';
+import { useOrdersStore } from '@/store/orders/orders.store';
+import { orderItemAdapter } from '../../../adapters/order-item.adapter';
 
 interface OrderFormContextType {
   orderForm: UseFormReturn<OrderForm>;
@@ -25,12 +29,14 @@ export const OrderFormProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const selectedStore = useStoreSelected((state) => state.store);
+  const orderItems = useOrdersStore((state) => state.orderItems);
   const defaultValues: OrderForm = {
     date: new Date(),
     status: OrderStatusEnum.Values.PENDING,
-    storeId: '',
+    storeId: selectedStore?.id || '',
     customerId: '',
-    orderItems: [{ price: 0, quantity: 1, productId: '' }],
+    orderItems: [],
   };
 
   const orderForm = useForm<OrderForm>({
@@ -53,6 +59,17 @@ export const OrderFormProvider = ({
     },
   });
 
+  useEffect(() => {
+    orderForm.register('orderItems');
+  }, []);
+
+  useEffect(() => {
+    orderForm.setValue(
+      'orderItems',
+      orderItems.map((item) => orderItemAdapter(item)),
+    );
+  }, [orderItems]);
+
   const onSubmit: SubmitHandler<OrderForm> = (data) => {
     mutate(data);
   };
@@ -66,8 +83,9 @@ export const OrderFormProvider = ({
       <Form {...orderForm}>
         <form onSubmit={orderForm.handleSubmit(onSubmit, onError)}>
           {children}
-          <Button type="submit">Create</Button>
+          <Button type="submit" className='mt-4'>Create Order</Button>
         </form>
+        <DevTool control={orderForm.control} />
       </Form>
     </OrderFormContext.Provider>
   );

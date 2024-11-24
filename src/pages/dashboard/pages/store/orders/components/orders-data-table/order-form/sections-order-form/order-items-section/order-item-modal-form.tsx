@@ -43,6 +43,9 @@ export default function AddItemModal() {
     quantity: 0,
   });
 
+
+
+
   const handleAddNewItem = () => {
     if (newItem.productId && newItem.quantity > 0 && newItem.product) {
       const updatedStock = newItem.product.stock - newItem.quantity;
