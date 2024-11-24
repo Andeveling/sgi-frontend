@@ -5,6 +5,9 @@ import { OrderItemsTableSection } from '../../components/orders-data-table/order
 import { OrderSection } from '../../components/orders-data-table/order-form/sections-order-form/order-section';
 
 export default function CreateOrderPage() {
+
+
+
   return (
     <PageContainer title="Create Order" description="Create a new order">
       <OrderFormProvider>

@@ -22,7 +22,7 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   OrderItemWithProduct,
   useOrdersStore,
-} from '../../../../../../../../../../store/orders/orders.store';
+} from '@/store/orders/orders.store';
 import AddItemModal from './order-item-modal-form';
 import useSocket from '@/hooks/use-sockets';
 import { formatCurrency } from '@/utilities/currency-util';
@@ -79,7 +79,7 @@ export const OrderItemsTableSection = () => {
     [orderItems],
   );
 
-  const taxes = useMemo(() => subtotal * 0.1, [subtotal]); 
+  const taxes = useMemo(() => subtotal * 0.1, [subtotal]);
   const total = useMemo(() => subtotal + taxes, [subtotal, taxes]);
 
   return (
@@ -146,7 +146,7 @@ export const OrderItemsTableSection = () => {
                   Impuestos
                 </TableCell>
                 <TableCell className="text-right font-medium">
-                 {formatCurrency(taxes)}
+                  {formatCurrency(taxes)}
                 </TableCell>
                 <TableCell />
               </TableRow>
