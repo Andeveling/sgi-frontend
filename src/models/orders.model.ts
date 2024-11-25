@@ -14,9 +14,13 @@ export const OrderSchema = z.object({
   id: z.string().uuid().optional(),
   date: z.date().default(() => new Date()),
   status: OrderStatusEnum.default('PENDING'),
-
+  totalAmount: z.coerce.number().nonnegative(),
+  orderNumber: z.string().optional(),
   storeId: z.string().uuid(),
   customerId: z.string().uuid(),
+
+  cancelledAt: z.date().nullable(),
+  fulfilledAt: z.date().nullable(),
 
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
@@ -26,6 +30,8 @@ export const OrderSchema = z.object({
 
 export const OrderFormSchema = OrderSchema.omit({
   id: true,
+  totalAmount: true,
+  orderNumber: true,
   createdAt: true,
   updatedAt: true,
 });

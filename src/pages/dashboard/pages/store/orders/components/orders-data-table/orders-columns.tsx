@@ -7,6 +7,8 @@ import { formatCurrency } from '@/utilities/currency-util';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import { CheckCircleIcon, ClockIcon, X } from 'lucide-react';
+import { useOrderMutations } from '../../hooks/use-order-mutations';
+import { OrderActionsMenu } from './actions-menu/order-actions-menu';
 
 export const ordersColumns: ColumnDef<Order>[] = [
   {
@@ -57,6 +59,36 @@ export const ordersColumns: ColumnDef<Order>[] = [
       return <div>{format(order.date, 'dd/MM/yyyy')}</div>;
     },
   },
+  {
+    accessorKey: 'fulfilledAt',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Fulfilled At" className='justify-center' />
+    ),
+    cell: ({ row }) => {
+      const order = row.original;
+      return (
+        <div className='text-center'>
+          {order.fulfilledAt ? format(order.fulfilledAt, 'dd/MM/yyyy') : '-'}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'cancelledAt',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Cancelled At"  className='justify-center' />
+    ),
+    cell: ({ row }) => {
+      const order = row.original;
+
+      return (
+        <div className='text-center'>
+          {order.cancelledAt ? format(order.cancelledAt, 'dd/MM/yyyy') : '-'}
+        </div>
+      );
+    },
+  },
+
   {
     accessorKey: 'totalAmount',
     header: ({ column }) => (
@@ -124,7 +156,27 @@ export const ordersColumns: ColumnDef<Order>[] = [
     id: 'actions',
     cell: ({ row }) => {
       const order = row.original;
-      return <button type="button">Actions</button>;
+      const { cancelOrderMutation, completeOrderMutation } =
+        useOrderMutations();
+      return (
+        <OrderActionsMenu
+          onComplete={(orderId) => {
+            const confirmed = window.confirm(
+              '¿Estás seguro de completar esta orden?',
+            );
+            if (!confirmed) return;
+            completeOrderMutation.mutate(orderId);
+          }}
+          onCancel={async (orderId) => {
+            const confirmed = window.confirm(
+              '¿Estás seguro de cancelar esta orden?',
+            );
+            if (!confirmed) return;
+            cancelOrderMutation.mutate(orderId);
+          }}
+          order={order}
+        />
+      );
     },
   },
 ];
