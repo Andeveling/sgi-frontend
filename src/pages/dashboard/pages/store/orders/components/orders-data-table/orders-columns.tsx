@@ -56,18 +56,26 @@ export const ordersColumns: ColumnDef<Order>[] = [
     ),
     cell: ({ row }) => {
       const order = row.original;
-      return <div>{format(order.date, 'dd/MM/yyyy')}</div>;
+      return (
+        <div>
+          {order.date ? format(new Date(order.date), 'dd/MM/yyyy') : '-'}
+        </div>
+      );
     },
   },
   {
     accessorKey: 'fulfilledAt',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Fulfilled At" className='justify-center' />
+      <DataTableColumnHeader
+        column={column}
+        title="Fulfilled At"
+        className="justify-center"
+      />
     ),
     cell: ({ row }) => {
       const order = row.original;
       return (
-        <div className='text-center'>
+        <div className="text-center">
           {order.fulfilledAt ? format(order.fulfilledAt, 'dd/MM/yyyy') : '-'}
         </div>
       );
@@ -76,13 +84,17 @@ export const ordersColumns: ColumnDef<Order>[] = [
   {
     accessorKey: 'cancelledAt',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Cancelled At"  className='justify-center' />
+      <DataTableColumnHeader
+        column={column}
+        title="Cancelled At"
+        className="justify-center"
+      />
     ),
     cell: ({ row }) => {
       const order = row.original;
 
       return (
-        <div className='text-center'>
+        <div className="text-center">
           {order.cancelledAt ? format(order.cancelledAt, 'dd/MM/yyyy') : '-'}
         </div>
       );

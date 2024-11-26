@@ -16,6 +16,7 @@ import CustomersPage from '@/pages/dashboard/pages/store/customers/customers-pag
 import OrdersPage from '@/pages/dashboard/pages/store/orders/orders-page';
 import CreateOrderPage from '@/pages/dashboard/pages/store/orders/pages/create/create-order-page';
 import ShowOrderPage from '@/pages/dashboard/pages/store/orders/pages/show/show-order.page';
+import IssuesPage from '@/pages/dashboard/pages/store/boards/issues-page';
 
 export const router = createBrowserRouter([
   {
@@ -72,7 +73,11 @@ export const router = createBrowserRouter([
             path: ':storeId/orders/create',
             Component: CreateOrderPage,
           },
-
+          {
+            id: 'issuePage',
+            path: ':storeId/issues',
+            Component: IssuesPage,
+          },
         ],
       },
     ],
