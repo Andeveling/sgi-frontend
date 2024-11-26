@@ -1,4 +1,5 @@
 import api from "@/api/api";
+import { Task } from "@/models/task.model";
 
 export const TaskService = {
   async createTask(data: {
@@ -6,7 +7,7 @@ export const TaskService = {
     columnId: string;
     description?: string;
   }) {
-    return api.post('/tasks', data);
+    return api.post<Task>('/tasks', data);
   },
   async updateTask(
     taskId: string,
