@@ -21,6 +21,7 @@ import { type Task, TaskCard } from './task-card';
 import type { Column } from './board-column';
 import { hasDraggableData } from './utils.board';
 import { coordinateGetter } from './multipleContainersKeyboardPreset';
+import { useQueryColumns } from '../hooks/use-query-columns';
 
 const defaultCols = [
   {
@@ -106,17 +107,15 @@ const initialTasks: Task[] = [
     content: 'Launch website and deploy to server',
   },
 ];
-export function KanbanBoard() {
+export function KanbanBoard({ boardId }: { boardId: string }) {
   const [columns, setColumns] = useState<Column[]>(defaultCols);
   const pickedUpTaskColumn = useRef<ColumnId | null>(null);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
-
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
-
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
-
   const [activeTask, setActiveTask] = useState<Task | null>(null);
-
+  const { data } = useQueryColumns(boardId);
+  console.log('Columns: ', data);
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor),
@@ -129,6 +128,9 @@ export function KanbanBoard() {
     const tasksInColumn = tasks.filter((task) => task.columnId === columnId);
     const taskPosition = tasksInColumn.findIndex((task) => task.id === taskId);
     const column = columns.find((col) => col.id === columnId);
+    console.log('Tasks:', tasksInColumn);
+    console.log('Task position: ', taskPosition);
+    console.log('Column: ', column);
     return {
       tasksInColumn,
       taskPosition,

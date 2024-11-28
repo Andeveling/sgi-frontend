@@ -1,22 +1,30 @@
-import api from "@/api/api";
+import api from '@/api/api';
+import { Board, SaveBoard } from '@/models/board.model';
 
 export const BoardService = {
-  async createBoard(data: { name: string; description?: string }) {
-    return api.post('/boards', data);
+  async createBoard(dataBoard: SaveBoard) {
+    const res = await api.post('/boards', dataBoard);
+    const data = res.data;
+    return data;
   },
-  async updateBoard(
-    boardId: string,
-    data: { name?: string; description?: string },
-  ) {
-    return api.patch(`/boards/${boardId}`, data);
+  async updateBoard(dataBoard: Partial<SaveBoard>) {
+    const res = await api.patch(`/boards/${dataBoard.id}`, dataBoard);
+    const data = res.data;
+    return data;
   },
-  async deleteBoard(boardId: string) {
-    return api.delete(`/boards/${boardId}`);
+  async deleteBoard(boardId: Board['id']) {
+    const res = await api.delete(`/boards/${boardId}`);
+    const data = res.data;
+    return data;
   },
-  async getBoard(boardId: string) {
-    return api.get(`/boards/${boardId}`);
+  async getBoard(boardId: Board['id']) {
+    const res = await api.get<Board>(`/boards/${boardId}`);
+    const data = res.data;
+    return data;
   },
   async getBoards() {
-    return api.get('/boards');
+    const res = await api.get<Board[]>('/boards');
+    const data = res.data;
+    return data;
   },
 };

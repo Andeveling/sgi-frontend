@@ -17,7 +17,7 @@ export function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
           <SidebarGroup>
-            <SidebarGroupLabel>Support</SidebarGroupLabel>
+            <SidebarGroupLabel>Boards</SidebarGroupLabel>
             <SidebarGroupContent>
               <MenuSidebarSupport />
             </SidebarGroupContent>
