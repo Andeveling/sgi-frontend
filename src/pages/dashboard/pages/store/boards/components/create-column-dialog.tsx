@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { CreateColumnForm } from './create-column-form';
+import { useColumnMutations } from '../hooks/use-column-mutations';
 
 interface CreateColumnDialogProps {
   boardId: string;
@@ -18,6 +19,7 @@ interface CreateColumnDialogProps {
 
 export function CreateColumnDialog({ boardId }: CreateColumnDialogProps) {
   const [open, setOpen] = useState(false);
+
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
