@@ -1,19 +1,12 @@
-import type { UniqueIdentifier } from '@dnd-kit/core';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Task } from '@/models/task.model';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { cva } from 'class-variance-authority';
 import { GripVertical } from 'lucide-react';
-import { ColumnId } from './kanban-board';
-import { Badge } from '@/components/ui/badge';
 
-
-export interface Task {
-  id: UniqueIdentifier;
-  columnId: ColumnId;
-  content: string;
-}
 
 interface TaskCardProps {
   task: Task;
@@ -83,7 +76,7 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
         </Badge>
       </CardHeader>
       <CardContent className="px-3 pt-3 pb-6 text-left whitespace-pre-wrap">
-        {task.content}
+        {task.description}
       </CardContent>
     </Card>
   );

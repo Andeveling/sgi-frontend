@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { BoardColumn, BoardContainer } from './board-column';
@@ -17,105 +17,36 @@ import {
   MouseSensor,
 } from '@dnd-kit/core';
 import { SortableContext, arrayMove } from '@dnd-kit/sortable';
-import { type Task, TaskCard } from './task-card';
-import type { Column } from './board-column';
+import { TaskCard } from './task-card';
 import { hasDraggableData } from './utils.board';
 import { coordinateGetter } from './multipleContainersKeyboardPreset';
 import { useQueryColumns } from '../hooks/use-query-columns';
+import { useQueryTasksByBoard } from '../hooks/use-task-hook';
+import { Task } from '@/models/task.model';
+import { Column } from '@/models/column.model';
 
-const defaultCols = [
-  {
-    id: 'todo' as const,
-    title: 'Todo',
-  },
-  {
-    id: 'in-progress' as const,
-    title: 'In progress',
-  },
-  {
-    id: 'done' as const,
-    title: 'Done',
-  },
-] satisfies Column[];
+export type ColumnId = Column['id'];
 
-export type ColumnId = (typeof defaultCols)[number]['id'];
-
-const initialTasks: Task[] = [
-  {
-    id: 'task1',
-    columnId: 'done',
-    content: 'Project initiation and planning',
-  },
-  {
-    id: 'task2',
-    columnId: 'done',
-    content: 'Gather requirements from stakeholders',
-  },
-  {
-    id: 'task3',
-    columnId: 'done',
-    content: 'Create wireframes and mockups',
-  },
-  {
-    id: 'task4',
-    columnId: 'in-progress',
-    content: 'Develop homepage layout',
-  },
-  {
-    id: 'task5',
-    columnId: 'in-progress',
-    content: 'Design color scheme and typography',
-  },
-  {
-    id: 'task6',
-    columnId: 'todo',
-    content: 'Implement user authentication',
-  },
-  {
-    id: 'task7',
-    columnId: 'todo',
-    content: 'Build contact us page',
-  },
-  {
-    id: 'task8',
-    columnId: 'todo',
-    content: 'Create product catalog',
-  },
-  {
-    id: 'task9',
-    columnId: 'todo',
-    content: 'Develop about us page',
-  },
-  {
-    id: 'task10',
-    columnId: 'todo',
-    content: 'Optimize website for mobile devices',
-  },
-  {
-    id: 'task11',
-    columnId: 'todo',
-    content: 'Integrate payment gateway',
-  },
-  {
-    id: 'task12',
-    columnId: 'todo',
-    content: 'Perform testing and bug fixing',
-  },
-  {
-    id: 'task13',
-    columnId: 'todo',
-    content: 'Launch website and deploy to server',
-  },
-];
 export function KanbanBoard({ boardId }: { boardId: string }) {
-  const [columns, setColumns] = useState<Column[]>(defaultCols);
+  const { data: columnsData } = useQueryColumns(boardId);
+  const [columns, setColumns] = useState<Column[]>(columnsData);
+
+  useEffect(() => {
+    setColumns(columnsData);
+  }, [columnsData]);
+
   const pickedUpTaskColumn = useRef<ColumnId | null>(null);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const { data: tasksData } = useQueryTasksByBoard(boardId);
+  useEffect(() => {
+    console.log('Tasks data: ', tasksData);
+    setTasks(tasksData);
+  }, [tasksData]);
+
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
-  const { data } = useQueryColumns(boardId);
-  console.log('Columns: ', data);
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor),
@@ -154,7 +85,7 @@ export function KanbanBoard({ boardId }: { boardId: string }) {
           pickedUpTaskColumn.current,
         );
         return `Picked up Task ${
-          active.data.current.task.content
+          active.data.current.task.description
         } at position: ${taskPosition + 1} of ${
           tasksInColumn.length
         } in column ${column?.title}`;
@@ -181,7 +112,7 @@ export function KanbanBoard({ boardId }: { boardId: string }) {
         );
         if (over.data.current.task.columnId !== pickedUpTaskColumn.current) {
           return `Task ${
-            active.data.current.task.content
+            active.data.current.task.description
           } was moved over column ${column?.title} in position ${
             taskPosition + 1
           } of ${tasksInColumn.length}`;

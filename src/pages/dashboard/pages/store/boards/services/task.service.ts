@@ -1,7 +1,14 @@
-import api from "@/api/api";
-import { Task } from "@/models/task.model";
+import api from '@/api/api';
+import { Task } from '@/models/task.model';
 
 export const TaskService = {
+
+  async getTasksByBoard(boardId: string) {
+    const res = await api.get<Task[]>(`/tasks/board/${boardId}`);
+    const data = res.data;
+    return data;
+  },
+
   async createTask(data: {
     title: string;
     columnId: string;

@@ -2,17 +2,20 @@ import { SortableContext, useSortable } from '@dnd-kit/sortable';
 import { useDndContext, type UniqueIdentifier } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { useMemo } from 'react';
-import { Task, TaskCard } from './task-card';
+import { TaskCard } from './task-card';
 import { cva } from 'class-variance-authority';
 import { GripVertical } from 'lucide-react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from '@/components/ui/card';
 import { ScrollBar, ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
-
-export interface Column {
-  id: UniqueIdentifier;
-  title: string;
-}
+import { Column } from '@/models/column.model';
+import { Task } from '@/models/task.model';
+import { CreateTaskDialog } from './create-task-dialog';
 
 export type ColumnType = 'Column';
 
@@ -76,7 +79,7 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
         dragging: isOverlay ? 'overlay' : isDragging ? 'over' : undefined,
       })}
     >
-      <CardHeader className="p-4 font-semibold border-b-2 text-left flex flex-row space-between items-center">
+      <CardHeader className="p-4 font-semibold border-b-2 text-left flex flex-row space-between items-center relative">
         <Button
           variant={'ghost'}
           {...attributes}
@@ -88,8 +91,8 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
         </Button>
         <span className="ml-auto"> {column.title}</span>
       </CardHeader>
-      <ScrollArea>
-        <CardContent className="flex flex-grow flex-col gap-2 p-2">
+      <ScrollArea className="flex-grow overflow-auto">
+        <CardContent className="flex flex-grow flex-col gap-2 p-2 h-full">
           <SortableContext items={tasksIds}>
             {tasks.map((task) => (
               <TaskCard key={task.id} task={task} />
@@ -97,6 +100,9 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
           </SortableContext>
         </CardContent>
       </ScrollArea>
+      <CardFooter className="p-4 font-semibold border-t-2 border-secondary max-h-14">
+        <CreateTaskDialog columnId={column.id} position={tasks.length} />
+      </CardFooter>
     </Card>
   );
 }

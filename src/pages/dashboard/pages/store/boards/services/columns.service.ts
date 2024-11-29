@@ -1,10 +1,10 @@
 import api from '@/api/api';
-import { SaveColumn } from '@/models/column.model';
+import { Column, SaveColumn } from '@/models/column.model';
 
 export const ColumnService = {
 
   async getColumns(boardId: string) {
-    const res = await api.get(`/columns/board/${boardId}`);
+    const res = await api.get<Column[]>(`/columns/board/${boardId}`);
     const data = res.data;
     return data;
   },

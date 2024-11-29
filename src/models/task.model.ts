@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { UniqueIdentifier } from '@dnd-kit/core';
 
 export const TaskSchema = z.object({
   id: z.string(),

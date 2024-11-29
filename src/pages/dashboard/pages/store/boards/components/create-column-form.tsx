@@ -5,13 +5,13 @@ import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { SaveColumn, SaveColumnSchema } from '@/models/column.model';
@@ -29,7 +29,8 @@ export function CreateColumnForm({
   onCancel,
 }: CreateColumnFormProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const { createColumnMutation } = useColumnMutations();
+
+  const { createColumnMutation } = useColumnMutations(boardId);
 
   const form = useForm<SaveColumn>({
     resolver: zodResolver(SaveColumnSchema),
