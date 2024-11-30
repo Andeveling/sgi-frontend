@@ -1,50 +1,42 @@
-import { useOrdersStore } from '@/store/orders/orders.store';
-import { useEffect } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3010');
+export const useSocket = (serverPath: string) => {
+  const [online, setOnline] = useState(false);
 
-const events = {
-  productStockUpdated: 'productStockUpdated',
-  productsStockUpdated: 'productsStockUpdated',
-};
-
-const useSocket = () => {
-  const updateProductStock = useOrdersStore(
-    (state) => state.updateProductStock,
+  // Usamos useMemo para no crear una conexión nueva cada vez que cambiamos el serverPath
+  const socket = useMemo(
+    () =>
+      io.connect(serverPath, {
+        transports: ['websocket'],
+        reconnection: false,
+      }),
+    [serverPath],
   );
+  useEffect(() => {
+    socket.on('connect', () => {
+      setOnline(true);
+    });
+    return () => {
+      socket.off('connect');
+    };
+  }, [socket]);
 
   useEffect(() => {
-    socket.on(
-      events.productStockUpdated,
-      (data: { productId: string; newStock: number }) => {
-        updateProductStock(data.productId, data.newStock);
-        console.log('Single product stock updated:', data);
-      },
-    );
-
-    socket.on(
-      events.productsStockUpdated,
-      (data: { products: { productId: string; newStock: number }[] }) => {
-        data.products.forEach((product) => {
-          updateProductStock(product.productId, product.newStock);
-        });
-        console.log('Multiple products stock updated:', data);
-      },
-    );
-
+    socket.on('disconnect', () => {
+      setOnline(false);
+    });
     return () => {
-      socket.off(events.productStockUpdated);
-      socket.off(events.productsStockUpdated);
+      socket.off('disconnect');
     };
-  }, [updateProductStock]);
+  }, [socket]);
 
-  const subscribeToStockUpdates = (productId: string) => {
-    socket.emit('subscribeToStockUpdates', { productId });
-    console.log(`Subscribed to stock updates for product ${productId}`);
+  useEffect(() => {
+    setOnline(socket.connected);
+  }, [socket]);
+
+  return {
+    socket,
+    online,
   };
-
-  return { subscribeToStockUpdates };
 };
-
-export default useSocket;

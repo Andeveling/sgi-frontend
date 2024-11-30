@@ -1,76 +1,95 @@
-import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { TaskComment } from './task-comment';
+import { Textarea } from '@/components/ui/textarea';
+import { useSocket } from '@/context/SocketContext';
+import { SaveTaskComment, TaskComment } from '@/models/task-comment.model';
 import { Task } from '@/models/task.model';
-import { Star } from 'lucide-react';
+import { useAuthStore } from '@/store/auth/auth.store';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
+import { TaskCommentCard } from './task-comment-card';
+import TaskStarButton from './task-starts';
 
 interface TaskDetailsModalProps {
   task: Task;
   isOpen: boolean;
   onClose: () => void;
-  onCommentAdded: () => void;
 }
 
 export function TaskDetailsModal({
   task,
   isOpen,
   onClose,
-  onCommentAdded,
 }: TaskDetailsModalProps) {
   const [newComment, setNewComment] = useState('');
-  const [comments, setComments] = useState<Comment[]>(task.comments || []);
-  const [starCount, setStarCount] = useState(task.stars || 0);
-  const [isStarred, setIsStarred] = useState(false);
+  const [comments, setComments] = useState<TaskComment[]>([]);
+  const { emit, on, off } = useSocket();
+  const user = useAuthStore((state) => state.user);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handleCommentsData = (data: {
+      taskId: string;
+      count: number;
+      comments: TaskComment[];
+    }) => {
+      if (data.taskId === task.id) {
+        setComments(data.comments);
+      }
+    };
+
+    if (task.id) {
+      // Emitir evento para suscribirse y obtener los datos iniciales
+      emit('subscribeToTaskComments', { taskId: task.id });
+      // Emitir solicitud para obtener los comentarios
+      emit('getTaskCommentsData', { taskId: task.id });
+    }
+
+    // Escuchar eventos de actualizaciones
+    on('taskCommentsUpdated', handleCommentsData);
+
+    // Escuchar eventos de actualizaciones
+    on('taskCommentsData', handleCommentsData);
+
+    return () => {
+      // Limpiar suscripción al desmontar
+      off('taskCommentsUpdated', handleCommentsData);
+      off('taskCommentsData', handleCommentsData);
+    };
+  }, [task.id, emit, on, off]);
 
   const handleAddComment = () => {
-    if (newComment.trim()) {
-      const comment: Comment = {
-        id: Date.now().toString(),
-        content: newComment,
-        author: {
-          name: 'Current User', // Replace with actual user data
-          avatar: '/placeholder.svg?height=40&width=40',
-        },
-        createdAt: new Date().toISOString(),
-      };
-      setComments([...comments, comment]);
-      setNewComment('');
-      onCommentAdded();
-      // TODO: Implement API call to save the new comment
+    setLoading(true);
+    if (!user?.id) {
+      toast.error('No tienes permisos para hacer esto');
+      return;
     }
-  };
 
-  const handleStarClick = () => {
-    setIsStarred(!isStarred);
-    setStarCount((prevCount) => (isStarred ? prevCount - 1 : prevCount + 1));
-    // TODO: Implement API call to update star count on the server
+    const data: SaveTaskComment = {
+      taskId: task.id,
+      userId: user?.id,
+      content: newComment,
+    };
+
+    emit('addTaskComment', data);
+    setNewComment('');
+    setLoading(false);
+    toast.success('Comentario agregado exitosamente');
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px]">
-        <DialogHeader>
+        <DialogHeader className="mt-4">
           <DialogTitle className="flex justify-between items-center">
             <span>{task.title}</span>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-muted-foreground hover:text-primary"
-              onClick={handleStarClick}
-            >
-              <Star
-                className={`h-4 w-4 mr-1 ${isStarred ? 'fill-primary' : ''}`}
-              />
-              <span>{starCount}</span>
-            </Button>
+            <TaskStarButton taskId={task.id} />
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
@@ -82,7 +101,7 @@ export function TaskDetailsModal({
             <h3 className="text-lg font-semibold mb-2">Comments</h3>
             <ScrollArea className="h-[200px] w-full rounded-md border p-4">
               {comments.map((comment) => (
-                <TaskComment key={comment.id} comment={comment} />
+                <TaskCommentCard key={comment.id} comment={comment} />
               ))}
             </ScrollArea>
           </div>
@@ -93,7 +112,11 @@ export function TaskDetailsModal({
               onChange={(e) => setNewComment(e.target.value)}
               className="w-full"
             />
-            <Button onClick={handleAddComment} className="mt-2">
+            <Button
+              onClick={handleAddComment}
+              className="mt-2"
+              disabled={loading}
+            >
               Add Comment
             </Button>
           </div>

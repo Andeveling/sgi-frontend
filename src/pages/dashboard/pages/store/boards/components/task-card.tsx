@@ -13,6 +13,8 @@ import { CSS } from '@dnd-kit/utilities';
 import { cva } from 'class-variance-authority';
 import { GripVertical, Star, MessageSquare } from 'lucide-react';
 import { TaskDetailsModal } from './task-details-modal';
+import TaskStarButton from './task-starts';
+import TaskCommentsCount from './task-commets-count';
 
 interface TaskCardProps {
   task: Task;
@@ -28,8 +30,6 @@ export interface TaskDragData {
 
 export function TaskCard({ task, isOverlay }: TaskCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [starCount, setStarCount] = useState(task.stars || 0);
-  const [isStarred, setIsStarred] = useState(false);
 
   const {
     setNodeRef,
@@ -54,7 +54,7 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
     transform: CSS.Translate.toString(transform),
   };
 
-  const variants = cva('', {
+  const variants = cva('hover:bg-muted/30 cursor-pointer', {
     variants: {
       dragging: {
         over: 'ring-2 opacity-30',
@@ -68,13 +68,6 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
     if (!(e.target as HTMLElement).closest('button')) {
       setIsModalOpen(true);
     }
-  };
-
-  const handleStarClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsStarred(!isStarred);
-    setStarCount((prevCount) => (isStarred ? prevCount - 1 : prevCount + 1));
-    // TODO: Implement API call to update star count on the server
   };
 
   return (
@@ -105,39 +98,14 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
           {task.title}
         </CardContent>
         <CardFooter className="px-3 py-2 border-t border-secondary flex justify-between items-center">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-muted-foreground hover:text-primary"
-            onClick={handleStarClick}
-          >
-            <Star
-              className={`h-4 w-4 mr-1 ${isStarred ? 'fill-primary' : ''}`}
-            />
-            <span className="text-xs">{starCount}</span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-muted-foreground hover:text-primary"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsModalOpen(true);
-            }}
-          >
-            <MessageSquare className="h-4 w-4 mr-1" />
-            <span className="text-xs">{task.comments?.length || 0}</span>
-          </Button>
+          <TaskStarButton taskId={task.id} />
+          <TaskCommentsCount taskId={task.id} />
         </CardFooter>
       </Card>
       <TaskDetailsModal
         task={task}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onCommentAdded={() => {
-          
-          task.comments = [...(task.comments || []), {}];
-        }}
       />
     </>
   );

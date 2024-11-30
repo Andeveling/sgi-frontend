@@ -24,7 +24,6 @@ import {
   useOrdersStore,
 } from '@/store/orders/orders.store';
 import AddItemModal from './order-item-modal-form';
-import useSocket from '@/hooks/use-sockets';
 import { formatCurrency } from '@/utilities/currency-util';
 
 export const OrderItemsTableSection = () => {
@@ -35,7 +34,7 @@ export const OrderItemsTableSection = () => {
     (state) => state.updateProductStock,
   );
 
-  const { subscribeToStockUpdates } = useSocket();
+  // const { subscribeToStockUpdates } = useSocket();
   const [subscribedProducts, setSubscribedProducts] = useState<Set<string>>(
     new Set(),
   );
@@ -54,11 +53,11 @@ export const OrderItemsTableSection = () => {
   useEffect(() => {
     orderItems.forEach((item) => {
       if (!subscribedProducts.has(item.productId)) {
-        subscribeToStockUpdates(item.productId);
+        // subscribeToStockUpdates(item.productId);
         setSubscribedProducts((prev) => new Set(prev).add(item.productId));
       }
     });
-  }, [orderItems, subscribeToStockUpdates, subscribedProducts]);
+  }, [orderItems,  subscribedProducts]);
 
   const handleDeleteItem = (orderItem: OrderItemWithProduct) => {
     const { id } = orderItem;

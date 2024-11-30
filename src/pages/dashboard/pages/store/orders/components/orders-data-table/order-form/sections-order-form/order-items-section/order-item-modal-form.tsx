@@ -21,7 +21,6 @@ import { Input } from '@/components/ui/input';
 import { useOrdersStore } from '@/store/orders/orders.store';
 import { Product } from '@/models/product.model';
 import { FixedSizeList as List } from 'react-window';
-import useSocket from '@/hooks/use-sockets';
 import { toast } from 'sonner';
 
 export default function AddItemModal() {
@@ -30,7 +29,6 @@ export default function AddItemModal() {
   const updateProductStock = useOrdersStore(
     (state) => state.updateProductStock,
   );
-  const { subscribeToStockUpdates } = useSocket();
   const [isOpen, setIsOpen] = useState(false);
 
   const [newItem, setNewItem] = useState<{
@@ -60,7 +58,7 @@ export default function AddItemModal() {
           price: newItem.product.sellPrice,
         });
 
-        subscribeToStockUpdates(newItem.productId);
+        // subscribeToStockUpdates(newItem.productId);
 
         toast.success('Item added successfully.');
         setNewItem({ productId: '', product: null, quantity: 0 });
