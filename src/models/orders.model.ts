@@ -39,3 +39,4 @@ export const OrderFormSchema = OrderSchema.omit({
 export type Order = z.infer<typeof OrderSchema>;
 export type OrderForm = z.infer<typeof OrderFormSchema>;
 export type OrderItem = z.infer<typeof OrderItemSchema>;
+export type OrderStatus = z.infer<typeof OrderStatusEnum>;
