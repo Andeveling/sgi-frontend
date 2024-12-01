@@ -21,7 +21,7 @@ import { TaskCard } from './task-card';
 import { hasDraggableData } from './utils.board';
 import { coordinateGetter } from './multipleContainersKeyboardPreset';
 import { useQueryColumns } from '../hooks/use-query-columns';
-import { useQueryTasksByBoard } from '../hooks/use-task-hook';
+import { useMoveTask, useQueryTasksByBoard } from '../hooks/use-task-hook';
 import { Task } from '@/models/task.model';
 import { Column } from '@/models/column.model';
 
@@ -29,7 +29,8 @@ export type ColumnId = Column['id'];
 
 export function KanbanBoard({ boardId }: { boardId: string }) {
   const { data: columnsData } = useQueryColumns(boardId);
-  const [columns, setColumns] = useState<Column[]>(columnsData);
+  const [ columns, setColumns ] = useState<Column[]>(columnsData);
+  const moveTaskMutation = useMoveTask();
 
   useEffect(() => {
     setColumns(columnsData);
@@ -40,8 +41,8 @@ export function KanbanBoard({ boardId }: { boardId: string }) {
 
   const [tasks, setTasks] = useState<Task[]>([]);
   const { data: tasksData } = useQueryTasksByBoard(boardId);
+  
   useEffect(() => {
-    console.log('Tasks data: ', tasksData);
     setTasks(tasksData);
   }, [tasksData]);
 
@@ -59,9 +60,6 @@ export function KanbanBoard({ boardId }: { boardId: string }) {
     const tasksInColumn = tasks.filter((task) => task.columnId === columnId);
     const taskPosition = tasksInColumn.findIndex((task) => task.id === taskId);
     const column = columns.find((col) => col.id === columnId);
-    console.log('Tasks:', tasksInColumn);
-    console.log('Task position: ', taskPosition);
-    console.log('Column: ', column);
     return {
       tasksInColumn,
       taskPosition,
@@ -226,30 +224,32 @@ export function KanbanBoard({ boardId }: { boardId: string }) {
     const { active, over } = event;
     if (!over) return;
 
+    console.log('onDragEnd', active, over);
+
     const activeId = active.id;
     const overId = over.id;
 
     if (!hasDraggableData(active)) return;
-
+    
     const activeData = active.data.current;
-
+    
     if (activeId === overId) return;
-
+    
     const isActiveAColumn = activeData?.type === 'Column';
     if (!isActiveAColumn) return;
-
     setColumns((columns) => {
       const activeColumnIndex = columns.findIndex((col) => col.id === activeId);
-
       const overColumnIndex = columns.findIndex((col) => col.id === overId);
-
       return arrayMove(columns, activeColumnIndex, overColumnIndex);
     });
+
   }
 
   function onDragOver(event: DragOverEvent) {
     const { active, over } = event;
     if (!over) return;
+
+    console.log('onDragOver');
 
     const activeId = active.id;
     const overId = over.id;
@@ -293,6 +293,11 @@ export function KanbanBoard({ boardId }: { boardId: string }) {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
         const activeTask = tasks[activeIndex];
         if (activeTask) {
+          moveTaskMutation.mutate({
+            taskId: activeId as string,
+            targetColumnId: overId as ColumnId,
+            targetPosition: activeIndex,
+          });
           activeTask.columnId = overId as ColumnId;
           return arrayMove(tasks, activeIndex, activeIndex);
         }

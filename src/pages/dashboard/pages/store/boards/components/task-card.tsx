@@ -57,7 +57,7 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
   const variants = cva('hover:bg-muted/30 cursor-pointer', {
     variants: {
       dragging: {
-        over: 'ring-2 opacity-30',
+        over: 'ring-2 opacity-30 ring-primary',
         overlay: 'ring-2 ring-primary',
       },
     },

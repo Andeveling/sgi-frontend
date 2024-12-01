@@ -65,7 +65,6 @@ export const useMoveTask = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['tasks'],
-        exact: true,
       });
       toast.success('Task moved successfully');
     },

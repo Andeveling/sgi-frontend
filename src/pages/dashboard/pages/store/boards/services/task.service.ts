@@ -30,6 +30,7 @@ export const TaskService = {
     targetColumnId: string;
     targetPosition: number;
   }) {
-    return api.patch('/tasks/move', data);
+    console.log('Moving task:', data);
+    return api.post('/tasks/move', data);
   },
 };
