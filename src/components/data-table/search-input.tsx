@@ -4,12 +4,14 @@ import { Table } from '@tanstack/react-table';
 
 interface SearchInputProps<TData> {
   table: Table<TData>;
+  nameSearchColumn: string;
 }
 
 export const SearchInput = <TData,>({
   table,
+  nameSearchColumn,
 }: SearchInputProps<TData>): JSX.Element => {
-  const nameColumn = table.getColumn('name');
+  const nameColumn = table.getColumn(nameSearchColumn);
 
   return (
     <div className="relative max-w-sm">
@@ -17,7 +19,7 @@ export const SearchInput = <TData,>({
         <Search className="w-4 h-4" />
       </span>
       <Input
-        placeholder="Filter name..."
+        placeholder="Filter by parameter..."
         value={(nameColumn?.getFilterValue() as string) ?? ''}
         onChange={(event) => {
           if (nameColumn) {

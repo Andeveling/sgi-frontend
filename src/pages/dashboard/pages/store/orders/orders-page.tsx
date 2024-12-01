@@ -34,6 +34,7 @@ export default function OrdersPage() {
         columns={ordersColumns}
         data={orders.data}
         actions={<TableOrderOptions />}
+        searchColumn="orderNumber"
       />
     </PageContainer>
   );

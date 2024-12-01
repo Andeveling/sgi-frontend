@@ -31,6 +31,7 @@ export default function CategoriesPage() {
           columns={categoriesColumns}
           data={data.data}
           actions={<CategoryPopover />}
+          searchColumn='name'
         />
       </PageContainer>
     );

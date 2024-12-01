@@ -29,12 +29,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   actions?: React.ReactNode;
+  searchColumn: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   actions,
+  searchColumn
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -73,7 +75,7 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center justify-between py-4">
-        <SearchInput table={table} />
+        <SearchInput table={table} nameSearchColumn={searchColumn} />
 
         <div className="flex items-center gap-2">
           <DataTableViewOptions table={table} />

@@ -26,6 +26,7 @@ export default function ProductsPage() {
         columns={productsColumns}
         data={products?.data as any}
         actions={<CreateProductAction />}
+        searchColumn="name"
       />
     </PageContainer>
   );

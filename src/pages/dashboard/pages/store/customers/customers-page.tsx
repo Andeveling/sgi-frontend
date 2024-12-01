@@ -26,6 +26,7 @@ export default function CustomersPage() {
           columns={customersColumns}
           data={customers.data}
           actions={<CreateCustomerModal />}
+          searchColumn="name"
         />
       </PageContainer>
     );

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useOrderQuery } from '../../hooks/use-order-queries';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,10 +18,13 @@ import {
   DollarSignIcon,
   ClockIcon,
   ShoppingCartIcon,
+  ArrowLeft,
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { OrderStatus } from '@/models/orders.model';
 import { formatCurrency } from '@/utilities/currency-util';
+import { Button } from '@/components/ui/button';
+import { useStoreSelected } from '@/store/store-selected/store-selected.store';
 
 export default function ShowOrderPage() {
   const { orderId } = useParams();
@@ -31,6 +34,7 @@ export default function ShowOrderPage() {
     isError,
     error,
   } = useOrderQuery(orderId as string);
+  const store = useStoreSelected((state) => state.store);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
@@ -39,7 +43,17 @@ export default function ShowOrderPage() {
     <>
       {/* <pre>{JSON.stringify(order, null, 2)}</pre> */}
       <div className="container mx-auto py-10">
-        <h1 className="text-3xl font-bold mb-6">Order #{order?.orderNumber}</h1>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold mb-6">
+            Order #{order?.orderNumber}
+          </h1>
+          <Link to={`/dashboard/${store.id}/orders`}>
+            <Button variant="ghost" className="mt-4" size="lg">
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Button>
+          </Link>
+        </div>
         <div className="grid gap-6 md:grid-cols-2">
           <Card>
             <CardHeader>
