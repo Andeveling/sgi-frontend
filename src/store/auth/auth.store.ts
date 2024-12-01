@@ -15,7 +15,12 @@ export interface AuthState {
   checkProfileUser: () => Promise<void>;
 }
 
-const storeApi: StateCreator<AuthState> = (set) => ({
+const storeApi: StateCreator<
+  AuthState,
+  [],
+  [['zustand/persist', unknown]],
+  AuthState
+> = (set) => ({
   status: 'unauthorized',
   user: undefined,
   token: undefined,
@@ -50,6 +55,13 @@ export const useAuthStore = create<AuthState>()(
   devtools(
     persist(storeApi, {
       name: 'auth-store',
+      merge: (persistedState: unknown, currentState: AuthState) => ({
+        ...currentState,
+        ...(persistedState as AuthState),
+      }),
     }),
+    {
+      enabled: process.env.NODE_ENV === 'development',
+    },
   ),
 );

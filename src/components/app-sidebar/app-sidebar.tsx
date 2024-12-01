@@ -2,17 +2,24 @@ import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGrou
 import FooterSidebar from "./footer/footer-sidebar"
 import HeaderSidebar from "./header/header-sidebar"
 import MenuSidebar from "./menu/menu-sidebar"
+import MenuSidebarSupport from "./menu/menu-sidebar-support"
 
 export function AppSidebar() {
   return (
     <>
-      <Sidebar collapsible='offcanvas'>
+      <Sidebar collapsible='offcanvas' title="SGI-sidebar">
         <HeaderSidebar />
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupLabel>Application</SidebarGroupLabel>
+            <SidebarGroupLabel>Store Application</SidebarGroupLabel>
             <SidebarGroupContent>
               <MenuSidebar />
+            </SidebarGroupContent>
+          </SidebarGroup>
+          <SidebarGroup>
+            <SidebarGroupLabel>Boards</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <MenuSidebarSupport />
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
