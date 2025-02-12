@@ -4,6 +4,7 @@ import {
   ShoppingBagIcon,
   ShoppingCartIcon,
   Users2Icon,
+  Package,
 } from 'lucide-react';
 
 import {
@@ -47,6 +48,12 @@ export default function MenuSidebar() {
         title: 'Orders',
         url: `/dashboard/${store?.id}/orders`,
         icon: BookMarked,
+        isActive: false,
+      },
+      {
+        title: 'Inventory',
+        url: `/dashboard/${store?.id}/inventory`,
+        icon: Package,
         isActive: false,
       },
     ],

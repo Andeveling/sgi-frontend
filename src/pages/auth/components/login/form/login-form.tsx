@@ -19,7 +19,6 @@ import { getValidationError } from '@/utilities/get-validation-error';
 import { AxiosError } from 'axios';
 import { Toaster } from '@/components/ui/sonner';
 
-
 export default function LoginForm() {
   const loginUser = useAuthStore((state) => state.loginUser);
   const navigate = useNavigate();
@@ -104,6 +103,12 @@ export default function LoginForm() {
         />
         <Button type="submit" className="w-full">
           login
+        </Button>
+        <hr />
+        <Button type="button" asChild className="w-full" variant="outline">
+          <a href="https://wa.me/573007743602" target="_blank">
+            Required a demo
+          </a>
         </Button>
         <Toaster />
       </form>

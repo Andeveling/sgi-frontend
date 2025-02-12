@@ -1,22 +1,23 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import AuthLayout from '@/layouts/AuthLayout/auth-layout';
+import DashboardLayout from '@/layouts/DashboardLayout/dashboard-layout';
 import WelcomeLayout from '@/layouts/welcome-layout/welcome-layout';
 import NoFound404Page from '@/pages/404/nofound-404';
-import WelcomePage from '@/pages/welcome/welcome-page';
-import { Root } from '@/root';
-import DashboardLayout from '@/layouts/DashboardLayout/dashboard-layout';
-import HomePage from '@/pages/dashboard/pages/home/home.page';
-import CategoriesPage from '@/pages/dashboard/pages/store/categories/categories-page';
-import AuthLayout from '@/layouts/AuthLayout/auth-layout';
 import LoginPage from '@/pages/auth/pages/login/login-page';
-import ProductsPage from '@/pages/dashboard/pages/store/products/products-page';
-import CreateProductPage from '@/pages/dashboard/pages/store/products/pages/create/create-product-page';
-import EditProductPage from '@/pages/dashboard/pages/store/products/pages/edit/edit-product-page';
+import HomePage from '@/pages/dashboard/pages/home/home.page';
+import BoardPage from '@/pages/dashboard/pages/store/boards/board-page';
+import CategoriesPage from '@/pages/dashboard/pages/store/categories/categories-page';
 import CustomersPage from '@/pages/dashboard/pages/store/customers/customers-page';
+import InventoryPage from '@/pages/dashboard/pages/store/inventory/inventory-page';
 import OrdersPage from '@/pages/dashboard/pages/store/orders/orders-page';
 import CreateOrderPage from '@/pages/dashboard/pages/store/orders/pages/create/create-order-page';
 import ShowOrderPage from '@/pages/dashboard/pages/store/orders/pages/show/show-order.page';
-import BoardPage from '@/pages/dashboard/pages/store/boards/board-page';
+import CreateProductPage from '@/pages/dashboard/pages/store/products/pages/create/create-product-page';
+import EditProductPage from '@/pages/dashboard/pages/store/products/pages/edit/edit-product-page';
+import ProductsPage from '@/pages/dashboard/pages/store/products/products-page';
+import WelcomePage from '@/pages/welcome/welcome-page';
+import { Root } from '@/root';
 
 export const router = createBrowserRouter([
   {
@@ -79,10 +80,10 @@ export const router = createBrowserRouter([
             Component: BoardPage,
           },
           {
-            id: "boardPageExample",
-            path: ':storeId/board/1000',
-            Component: BoardPage,
-          }
+            id: 'inventoryPage',
+            path: ':storeId/inventory',
+            Component: InventoryPage,
+          },
         ],
       },
     ],
